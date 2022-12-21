@@ -12,7 +12,7 @@ import { CategoriesService } from '../services/categories.service';
   styleUrls: ['./category-details.component.scss'],
 })
 export class CategoryDetailsComponent implements OnDestroy {
-  category: ICategory | null = null;
+  public id: string | null = null;
 
   getCategorySubscription!: Subscription;
   editCategorySubscription!: Subscription;
@@ -23,19 +23,20 @@ export class CategoryDetailsComponent implements OnDestroy {
   });
   constructor(
     public categoryServices: CategoriesService,
-    private activatedRouteService: ActivatedRoute,
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.getCategorySubscription = this.activatedRouteService.data.subscribe(
-      (data) => {
-        this.category = data['category'];
-        if (this.category !== null) {
-          this.form.controls['name'].setValue(this.category.name);
-        }
-      }
-    );
+    const id = this.route.snapshot.paramMap.get('id')!;
+    if (id !== null) {
+      this.id = id;
+      this.getCategorySubscription = this.categoryServices
+        .getCategory(id)
+        .subscribe((category) => {
+          this.form.controls['name'].setValue(category.name);
+        });
+    }
   }
   ngOnDestroy(): void {
     this.getCategorySubscription?.unsubscribe();
@@ -49,7 +50,7 @@ export class CategoryDetailsComponent implements OnDestroy {
         id: '',
       };
 
-      if (this.category === null) {
+      if (this.id === null) {
         this.createCategorySubscription?.unsubscribe();
         this.createCategorySubscription = this.categoryServices
           .createCategory(category)
@@ -60,7 +61,7 @@ export class CategoryDetailsComponent implements OnDestroy {
       } else {
         this.editCategorySubscription?.unsubscribe();
         this.editCategorySubscription = this.categoryServices
-          .editCategory(this.category.id, category)
+          .editCategory(this.id, category)
           .subscribe(() => {
             this.snackBar.open('La categoria fue actualizada', 'ok');
             this.router.navigate(['categories']);
