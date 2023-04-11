@@ -1,0 +1,10 @@
+<h2>Categories</h2>
+<ul class="categories">
+  <li *ngFor="let category of categories$ | async">
+    <a [routerLink]="['categories',category.id]">
+      {{ category.name }}
+    </a>
+  </li>
+</ul>
+
+
