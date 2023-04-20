@@ -1,0 +1,12 @@
+<h2 *ngIf="isEdit">Edit</h2>
+<h2 *ngIf="isEdit === false">Create</h2>
+
+<div class="example-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Input</mat-label>
+    <input matInput />
+  </mat-form-field>
+</div>
+<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+  <mat-button-toggle value="bold">Create</mat-button-toggle>
+</mat-button-toggle-group>
