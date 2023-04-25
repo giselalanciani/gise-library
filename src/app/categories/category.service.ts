@@ -7,8 +7,9 @@ import { Injectable } from '@angular/core';
 export class CategoryService {
   constructor(private httpClient: HttpClient) {}
   getCategories() {
-    return this.httpClient.get<ICategory[]>(
-      '/api/categories'
-    );
+    return this.httpClient.get<ICategory[]>('/api/categories');
+  }
+  getCategory(id: number) {
+    return this.httpClient.get<ICategory[]>(`/api/category/${id}`);
   }
 }

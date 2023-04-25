@@ -13,9 +13,10 @@ import {MatIconModule} from '@angular/material/icon';
 import { CategoriesComponent } from './categories/categories.component'
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, TopBarComponent, CategoriesComponent],
+  declarations: [AppComponent, TopBarComponent, CategoriesComponent, CategoryDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
