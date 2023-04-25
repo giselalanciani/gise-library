@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import {MatIconModule} from '@angular/material/icon';
-import { CategoriesComponent } from './categories/categories.component'
+import { CategoriesComponent } from './categories2/categories.component'
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
@@ -30,5 +30,6 @@ import { CategoryDetailComponent } from './category-detail/category-detail.compo
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports:[]
 })
 export class AppModule {}
