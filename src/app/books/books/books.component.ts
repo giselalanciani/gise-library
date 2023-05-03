@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IBook } from '../models';
@@ -17,7 +18,8 @@ export class BooksComponent implements OnInit{
 
   constructor(
     public booksServices: BooksService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialogService: MatDialog
   ) {
     this.bookList$ = this.booksServices.getBooks();
   }
@@ -29,4 +31,17 @@ export class BooksComponent implements OnInit{
 
   }
 
+
+  openDeleteDialog (){
+    console.log('si, anda ! delete')
+    this.dialogService.open(DeleteBookDialog,{});
+  }
+
 }
+
+
+@Component({
+  selector: 'delete-book-dialog',
+  templateUrl: './delete-book-dialog.html',
+})
+export class DeleteBookDialog {}

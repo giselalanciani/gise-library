@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { BooksRoutingModule } from './books-routing.module'
-import { BooksComponent } from './books/books.component';
+import { BooksComponent, DeleteBookDialog } from './books/books.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { SharedModule } from '../shared/shared.module';
 
@@ -9,7 +9,8 @@ import { SharedModule } from '../shared/shared.module';
 @NgModule({
   declarations: [
     BooksComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    DeleteBookDialog
   ],
   imports: [
     SharedModule,
