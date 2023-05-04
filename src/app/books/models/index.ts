@@ -8,3 +8,8 @@ export interface IBook {
   price: number;
   categories: number[];
 }
+
+
+export interface IResponseMessage {
+  message: string;
+}

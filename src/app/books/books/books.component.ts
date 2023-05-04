@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { IBook } from '../models';
 import { BooksService } from '../services/books.service';
 
@@ -10,9 +10,12 @@ import { BooksService } from '../services/books.service';
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss'],
 })
-export class BooksComponent implements OnInit{
+export class BooksComponent implements OnInit, OnDestroy {
   bookList$: Observable<IBook[]>;
   bookList: IBook[] = [];
+  bookListSubscription!: Subscription;
+
+  removeBookSubscription!: Subscription;
 
   columnsToDisplay = ['name', 'author', 'stock', 'price', 'actions'];
 
@@ -23,25 +26,41 @@ export class BooksComponent implements OnInit{
   ) {
     this.bookList$ = this.booksServices.getBooks();
   }
+
   ngOnInit(): void {
-
-    this.bookList$.subscribe((books)=>{
+    this.bookListSubscription = this.bookList$.subscribe((books) => {
       this.bookList = books;
-    })
-
+    });
   }
 
-
-  openDeleteDialog (){
-    console.log('si, anda ! delete')
-    this.dialogService.open(DeleteBookDialog,{});
+  ngOnDestroy(): void {
+    this.bookListSubscription.unsubscribe();
+    this.removeBookSubscription?.unsubscribe();
   }
 
+  openDeleteDialog(book: IBook) {
+    const dialogRef = this.dialogService.open(DeleteBookDialog, { data: book });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data === true) {
+        this.removeBookSubscription?.unsubscribe()
+        this.removeBookSubscription = this.booksServices
+          .removeBook(book.id)
+          .subscribe(() => {
+            this.bookListSubscription.unsubscribe();
+            this.bookListSubscription = this.bookList$.subscribe((books) => {
+              this.bookList = books;
+            });
+          });
+      }
+    });
+  }
 }
-
 
 @Component({
   selector: 'delete-book-dialog',
   templateUrl: './delete-book-dialog.html',
 })
-export class DeleteBookDialog {}
+export class DeleteBookDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IBook) {}
+}
