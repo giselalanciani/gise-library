@@ -1,5 +1,5 @@
 export interface IBook {
-  id: number;
+  id?: number;
   name: string;
   year: number;
   author: string;
@@ -11,5 +11,9 @@ export interface IBook {
 
 
 export interface IResponseMessage {
+  message: string;
+}
+
+export interface IStoredMessage {
   message: string;
 }

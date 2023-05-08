@@ -1,12 +1,38 @@
-<h2 *ngIf="isEdit">Edit</h2>
-<h2 *ngIf="isEdit === false">Create</h2>
+<h2 *ngIf="id !== null">Edit</h2>
+<h2 *ngIf="id === null">Create</h2>
 
-<div class="example-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput />
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="outline">
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+
+    <mat-error *ngIf="hasFieldError('name', 'required')"
+      >El campo es requerido</mat-error
+    >
+    <mat-error *ngIf="form.controls['name'].hasError('maxlength')"
+      >El campo nombre no puede tener mas de 5 caracteres</mat-error
+    >
   </mat-form-field>
-</div>
-<mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-  <mat-button-toggle value="bold">Create</mat-button-toggle>
-</mat-button-toggle-group>
+  <mat-form-field appearance="outline">
+    <mat-label>Author</mat-label>
+    <input matInput formControlName="author" />
+    <mat-error *ngIf="form.controls['author'].hasError('required')"
+      >El campo es requerido</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Stock</mat-label>
+    <input matInput formControlName="stock" />
+    <mat-error *ngIf="form.controls['stock'].hasError('required')"
+      >El campo es requerido</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput formControlName="price" />
+    <mat-error *ngIf="form.controls['price'].hasError('required')"
+      >El campo es requerido</mat-error
+    >
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary">Create</button>
+</form>

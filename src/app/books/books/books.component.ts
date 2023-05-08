@@ -43,15 +43,18 @@ export class BooksComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((data) => {
       if (data === true) {
-        this.removeBookSubscription?.unsubscribe()
-        this.removeBookSubscription = this.booksServices
-          .removeBook(book.id)
-          .subscribe(() => {
-            this.bookListSubscription.unsubscribe();
-            this.bookListSubscription = this.bookList$.subscribe((books) => {
-              this.bookList = books;
+        this.removeBookSubscription?.unsubscribe();
+
+        if (book.id !== undefined) {
+          this.removeBookSubscription = this.booksServices
+            .removeBook(book.id)
+            .subscribe(() => {
+              this.bookListSubscription.unsubscribe();
+              this.bookListSubscription = this.bookList$.subscribe((books) => {
+                this.bookList = books;
+              });
             });
-          });
+        }
       }
     });
   }
