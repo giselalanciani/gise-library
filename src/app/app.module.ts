@@ -11,16 +11,12 @@ import { CategoriesComponent } from './categories2/categories.component';
 import { CategoryDetailComponent } from './category-detail/category-detail.component';
 import { SharedModule } from './shared/shared.module';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
     CategoriesComponent,
     CategoryDetailComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -28,7 +24,6 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     BrowserAnimationsModule,
     SharedModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -17,6 +17,8 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   removeBookSubscription!: Subscription;
 
+  dialogDeleteSubscription! : Subscription;
+
   columnsToDisplay = ['name', 'author', 'stock', 'price', 'actions'];
 
   constructor(
@@ -36,12 +38,14 @@ export class BooksComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.bookListSubscription.unsubscribe();
     this.removeBookSubscription?.unsubscribe();
+    this.dialogDeleteSubscription?.unsubscribe();
   }
 
   openDeleteDialog(book: IBook) {
     const dialogRef = this.dialogService.open(DeleteBookDialog, { data: book });
 
-    dialogRef.afterClosed().subscribe((data) => {
+    this.dialogDeleteSubscription?.unsubscribe();
+    this.dialogDeleteSubscription = dialogRef.afterClosed().subscribe((data) => {
       if (data === true) {
         this.removeBookSubscription?.unsubscribe();
 

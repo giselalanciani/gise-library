@@ -17,44 +17,20 @@
         routerLinkActive="active-link"
         class="hover"
         [routerLink]="['categories']"
-
       >
         <mat-icon matListItemIcon>home</mat-icon>
         <div matListItemTitle>Categories</div>
-
-
       </a>
       <a
         mat-list-item
         routerLinkActive="active-link"
         class="hover"
         [routerLink]="['books']"
-
       >
         <mat-icon matListItemIcon>home</mat-icon>
         <div matListItemTitle>Books</div>
-
-
       </a>
     </mat-list>
-
-    <!-- <mat-list class="nav" *ngFor="let route of routeLinks">
-      <a
-        mat-list-item
-        routerLinkActive="active-link"
-        class="hover"
-        routerLink="{{ route.link }}"
-      >
-        <mat-icon
-          mat-list-icon
-          [matTooltip]="!isExpanded ? route.name : null"
-          matTooltipPosition="right"
-        >
-          {{ route.icon }}</mat-icon
-        >
-        <p matLine *ngIf="isExpanded">{{ route.name }}</p>
-      </a>
-    </mat-list> -->
   </mat-drawer>
   <mat-drawer-content>
     <router-outlet></router-outlet>
