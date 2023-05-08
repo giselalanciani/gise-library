@@ -30,6 +30,16 @@
         <mat-icon matListItemIcon>home</mat-icon>
         <div matListItemTitle>Books</div>
       </a>
+
+      <a
+        mat-list-item
+        routerLinkActive="active-link"
+        class="hover"
+        [routerLink]="['authors']"
+      >
+        <mat-icon matListItemIcon>home</mat-icon>
+        <div matListItemTitle>Authors</div>
+      </a>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>
