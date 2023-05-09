@@ -13,7 +13,8 @@ export class AuthorsComponent implements OnInit, OnDestroy {
   authorList: IAuthors[] = [];
   authorListSubscription!: Subscription
 
-  columnsToDisplay = ['name', 'birthdate'];
+  columnsToDisplay = ['name', 'birthdate', 'actions'];
+
 
   constructor(public authorsServices: AuthorsService) {
     this.authorList$ = this.authorsServices.getAuthors();

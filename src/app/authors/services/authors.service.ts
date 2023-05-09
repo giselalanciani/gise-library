@@ -10,4 +10,7 @@ export class AuthorsService {
   getAuthors() {
     return this.httpClient.get<IAuthors[]>('/api/author');
   }
+  getAuthor(id: string) {
+    return this.httpClient.get<IAuthors>(`/api/author/${id}`);
+  }
 }
