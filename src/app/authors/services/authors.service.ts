@@ -8,6 +8,6 @@ import { IAuthors } from '../models';
 export class AuthorsService {
   constructor(private httpClient: HttpClient) {}
   getAuthors() {
-    return this.httpClient.get<IAuthors[]>('/api/authors');
+    return this.httpClient.get<IAuthors[]>('/api/author');
   }
 }
