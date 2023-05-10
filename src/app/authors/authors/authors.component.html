@@ -3,6 +3,7 @@
 <a mat-raised-button color="primary" [routerLink]="['create']">
   <mat-icon>add</mat-icon> Create
 </a>
+
 <table mat-table [dataSource]="authorList" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -32,7 +33,7 @@
           <mat-icon>edit</mat-icon>
           <span>Edit</span>
         </a>
-        <button mat-menu-item color="warn">
+        <button mat-menu-item color="warn" (click)="openDeleteDialog(author)">
           <mat-icon>delete</mat-icon>
           <span>Delete</span>
         </button>

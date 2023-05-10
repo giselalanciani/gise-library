@@ -3,3 +3,6 @@ export interface IAuthors {
   name: string;
   birthdate: string;
 }
+export interface IResponseMessage {
+  message: string;
+}

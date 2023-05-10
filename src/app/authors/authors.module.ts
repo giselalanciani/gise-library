@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthorsRoutingModule } from './authors-routing.module';
-import { AuthorsComponent } from './authors/authors.component';
+import { AuthorsComponent, DeleteAuthorDialog } from './authors/authors.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 
@@ -10,7 +10,8 @@ import { AuthorDetailsComponent } from './author-details/author-details.componen
 @NgModule({
   declarations: [
     AuthorsComponent,
-    AuthorDetailsComponent
+    AuthorDetailsComponent,
+    DeleteAuthorDialog,
   ],
   imports: [
     CommonModule,
