@@ -9,9 +9,6 @@
     <mat-error *ngIf="hasFieldError('name', 'required')"
       >El campo es requerido</mat-error
     >
-    <mat-error *ngIf="form.controls['name'].hasError('maxlength')"
-      >El campo nombre no puede tener mas de 5 caracteres</mat-error
-    >
   </mat-form-field>
   <mat-form-field appearance="outline">
     <mat-label>Author</mat-label>

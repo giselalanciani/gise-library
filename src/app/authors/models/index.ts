@@ -6,3 +6,7 @@ export interface IAuthors {
 export interface IResponseMessage {
   message: string;
 }
+
+export interface IStoredMessage {
+  message: string;
+}
