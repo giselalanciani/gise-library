@@ -40,6 +40,8 @@ export class AuthorDetailsComponent {
         });
     }
   }
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date(2070, 0, 1);
 
   ngOnDestroy(): void {
     this.getAuthorSubscription?.unsubscribe();
@@ -64,10 +66,12 @@ export class AuthorDetailsComponent {
           });
       } else {
         this.editAuthorSubscription?.unsubscribe();
-        this.editAuthorSubscription = this.authorService.editAuthor(this.id, author).subscribe(() => {
-          this.snackBar.open('El author fue actualizado', 'ok');
-          this.router.navigate(['authors']);
-        });
+        this.editAuthorSubscription = this.authorService
+          .editAuthor(this.id, author)
+          .subscribe(() => {
+            this.snackBar.open('El author fue actualizado', 'ok');
+            this.router.navigate(['authors']);
+          });
       }
     }
   }
