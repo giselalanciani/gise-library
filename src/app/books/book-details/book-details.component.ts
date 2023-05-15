@@ -65,7 +65,6 @@ export class BookDetailsComponent implements OnDestroy {
         // IS create
         this.createBookSubscription?.unsubscribe();
         this.createBookSubscription = this.booksServices.createBook(book).subscribe(() => {
-          console.log('redireccionamos al la pagina de listado.');
           this._snackBar.open('El libro fue guardado', 'ok');
           this.router.navigate(['books']);
         });
