@@ -2,3 +2,35 @@
 <a mat-raised-button color="primary" [routerLink]="['create']">
   <mat-icon>add</mat-icon> Create
 </a>
+<table mat-table [dataSource]="countryList" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let country">{{ country.name }}</td>
+  </ng-container>
+  <ng-container matColumnDef="actions" stickyEnd>
+    <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+    <td mat-cell *matCellDef="let country">
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="More options"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item color="primary" [routerLink]="[country.id, 'edit']">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </a>
+        <!-- <button mat-menu-item color="warn" (click)="openDeleteDialog(country)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button> -->
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+</table>
