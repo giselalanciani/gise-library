@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IStoredMessage } from 'src/app/books/models';
-import { IAuthors, IResponseMessage } from '../models';
+import { IResponseMessage } from 'src/app/models';
+import { IAuthors } from '../models';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,6 @@ export class AuthorsService {
     return this.httpClient.put<IAuthors>(`/api/author/${id}`, author);
   }
   createAuthor(author: IAuthors) {
-    return this.httpClient.post<IStoredMessage>(`/api/author`, author);
+    return this.httpClient.post<IResponseMessage>(`/api/author`, author);
   }
 }

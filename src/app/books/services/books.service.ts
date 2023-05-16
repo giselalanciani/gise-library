@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IBook, IResponseMessage, IStoredMessage } from '../models';
+import { IBook } from '../models';
+import { IResponseMessage } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class BooksService {
   }
 
   createBook(book: IBook) {
-    return this.httpClient.post<IStoredMessage>(`/api/book`, book);
+    return this.httpClient.post<IResponseMessage>(`/api/book`, book);
   }
 
   editBook(id: number, book: IBook) {

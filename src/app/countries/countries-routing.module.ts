@@ -1,11 +1,19 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CountriesComponent } from './countries/countries.component';
+import { CountryDetailsComponent } from './country-details/country-details.component';
 
-const routes: Routes = [{ path: '', component: CountriesComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    component: CountriesComponent,
+  },
+  { path: 'create', component: CountryDetailsComponent },
+  { path: ':id/edit', component: CountryDetailsComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CountriesRoutingModule { }
+export class CountriesRoutingModule {}

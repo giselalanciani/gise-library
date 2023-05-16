@@ -16,7 +16,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
   removeCountrySubscription!: Subscription;
   dialogDeleteSubscription! : Subscription;
 
-  columnsToDisplay = ['name'];
+  columnsToDisplay = ['name', 'actions'];
 
   constructor(public countryServices: CountriesService, public dialogService: MatDialog) {
     this.countryList$ = this.countryServices.getCountries();
