@@ -7,19 +7,11 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CategoriesComponent } from './categories2/categories.component';
-import { CategoryDetailComponent } from './category-detail/category-detail.component';
+
 import { SharedModule } from './shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    AppComponent,
-    TopBarComponent,
-    CategoriesComponent,
-    CategoryDetailComponent,
-
-  ],
+  declarations: [AppComponent, TopBarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
