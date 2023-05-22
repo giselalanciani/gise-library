@@ -1,0 +1,47 @@
+<h2>Categories</h2>
+<a
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/', 'categories', 'create']"
+>
+  <mat-icon>add</mat-icon> Create
+</a>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let category of categoryList">
+      <td>
+        {{ category.name }}
+      </td>
+      <td class="col-centered">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="More options"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <a
+            mat-menu-item
+            color="primary"
+            [routerLink]="['/', 'categories', category.id, 'edit']"
+          >
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </a>
+          <button mat-menu-item color="warn" (click)="openDeleteDialog(category)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </td>
+    </tr>
+  </tbody>
+</table>
