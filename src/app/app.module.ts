@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 
+
 @NgModule({
   declarations: [AppComponent, TopBarComponent, CategoryDetailsComponent, UserDetailsComponent],
   imports: [

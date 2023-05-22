@@ -21,6 +21,7 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   columnsToDisplay = ['name', 'author', 'stock', 'price', 'actions'];
 
+
   constructor(
     public booksServices: BooksService,
     private route: ActivatedRoute,
