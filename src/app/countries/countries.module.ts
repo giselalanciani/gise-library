@@ -5,13 +5,17 @@ import { CountriesRoutingModule } from './countries-routing.module';
 import { CountriesComponent, DeleteCountryDialog } from './countries/countries.component';
 import { SharedModule } from '../shared/shared.module';
 import { CountryDetailsComponent } from './country-details/country-details.component';
+import { CountriesV2Component } from './countries-v2/countries-v2.component';
+
 
 
 @NgModule({
   declarations: [
     CountriesComponent,
     DeleteCountryDialog,
-    CountryDetailsComponent
+    CountryDetailsComponent,
+    CountriesV2Component,
+
   ],
   imports: [
     CommonModule,

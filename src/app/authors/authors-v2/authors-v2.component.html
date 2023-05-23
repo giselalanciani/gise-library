@@ -1,5 +1,8 @@
 <h2>Authors</h2>
-<table>
+<a mat-raised-button color="primary" [routerLink]="['/', 'authors', 'create']">
+  <mat-icon>add</mat-icon> Create
+</a>
+<table class="library-table">
   <thead>
     <tr>
       <th>Name</th>

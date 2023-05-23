@@ -1,33 +1,19 @@
-<h2>Books</h2>
-<a mat-raised-button color="primary" [routerLink]="['/', 'books', 'create']">
+<h2>Countries</h2>
+<a mat-raised-button color="primary" [routerLink]="['/', 'countries', 'create']">
   <mat-icon>add</mat-icon> Create
 </a>
-
 <table class="library-table">
   <thead>
     <tr>
       <th>Name</th>
-      <th>Author</th>
-      <th>Stock</th>
-      <th>Price</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let book of bookList">
+    <tr *ngFor="let country of countryList">
       <td>
-        {{ book.name }}
+        {{ country.name }}
       </td>
-      <td>
-        {{ book.author }}
-      </td>
-      <td>
-        {{ book.stock }}
-      </td>
-      <td>
-        {{ book.price }}
-      </td>
-
       <td class="col-centered">
         <button
           mat-icon-button
@@ -41,12 +27,16 @@
           <a
             mat-menu-item
             color="primary"
-            [routerLink]="['/', 'books', book.id, 'edit']"
+            [routerLink]="['/', 'countries', country.id, 'edit']"
           >
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </a>
-          <button mat-menu-item color="warn" (click)="openDeleteDialog(book)">
+          <button
+            mat-menu-item
+            color="warn"
+            (click)="openDeleteDialog(country)"
+          >
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
