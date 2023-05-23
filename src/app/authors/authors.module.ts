@@ -5,6 +5,7 @@ import { AuthorsRoutingModule } from './authors-routing.module';
 import { AuthorsComponent, DeleteAuthorDialog } from './authors/authors.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
+import { AuthorsV2Component } from './authors-v2/authors-v2.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { AuthorDetailsComponent } from './author-details/author-details.componen
     AuthorsComponent,
     AuthorDetailsComponent,
     DeleteAuthorDialog,
+    AuthorsV2Component,
   ],
   imports: [
     CommonModule,
