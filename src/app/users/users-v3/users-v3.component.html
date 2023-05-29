@@ -1,0 +1,60 @@
+<h2>Users</h2>
+<a
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/', 'users', 'create']"
+>
+  <mat-icon>add</mat-icon> Create
+</a>
+<table class="library-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of userList">
+      <td>
+        {{ user.name }}
+      </td>
+      <td>
+        {{ user.email }}
+      </td>
+      <td>
+        {{ user.password }}
+      </td>
+      <td>
+        {{ user.role }}
+      </td>
+
+      <td class="col-centered">
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="More options"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <a
+            mat-menu-item
+            color="primary"
+            [routerLink]="['/', 'users', user.id, 'edit']"
+          >
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </a>
+          <button mat-menu-item color="warn" (click)="openDeleteDialog(user)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+      </td>
+    </tr>
+  </tbody>
+</table>
