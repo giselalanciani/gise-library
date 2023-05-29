@@ -26,14 +26,8 @@ export class BooksV3Component implements OnInit {
     this.bookList$ = this.booksServices.getBooks();
   }
   ngOnInit(): void {
-    this.bookListSubscription = this.bookList$.subscribe((books) => {
-      this.bookList = books;
-    });
-
     this.activatedRouteService.data.subscribe((data) => {
-      const bookList = data['booksList'];
-
-      console.log('booksList', bookList);
+      this.bookList = data['booksList'];
     });
   }
 
