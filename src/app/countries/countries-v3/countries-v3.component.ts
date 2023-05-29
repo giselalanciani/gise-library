@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { DeleteCountryDialog } from '../countries/countries.component';
 import { ICountry } from '../models';
@@ -10,7 +11,7 @@ import { CountriesService } from '../services/countries.service';
   templateUrl: './countries-v3.component.html',
   styleUrls: ['./countries-v3.component.scss'],
 })
-export class CountriesV3Component implements OnInit {
+export class CountriesV3Component implements OnInit, OnDestroy {
   countryList$: Observable<ICountry[]>;
   countryList: ICountry[] = [];
   countryListSubscription!: Subscription;
@@ -19,20 +20,22 @@ export class CountriesV3Component implements OnInit {
 
   constructor(
     public countryServices: CountriesService,
-    public dialogService: MatDialog
+    public dialogService: MatDialog,
+    private activatedRouteService: ActivatedRoute
   ) {
     this.countryList$ = this.countryServices.getCountries();
   }
 
   ngOnInit(): void {
-    this.countryListSubscription = this.countryList$.subscribe((countries) => {
-      this.countryList = countries;
-    });
+    this.countryListSubscription = this.activatedRouteService.data.subscribe(
+      (data) => {
+        this.countryList = data['countriesList'];
+      }
+    );
   }
+
   ngOnDestroy(): void {
     this.countryListSubscription.unsubscribe();
-    this.removeCountrySubscription?.unsubscribe();
-    this.dialogDeleteSubscription?.unsubscribe();
   }
   openDeleteDialog(country: ICountry) {
     const dialogRef = this.dialogService.open(DeleteCountryDialog, {
