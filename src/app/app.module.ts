@@ -12,10 +12,11 @@ import { SharedModule } from './shared/shared.module';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthorsV3Component } from './authors/authors-v3/authors-v3.component';
 
 
 @NgModule({
-  declarations: [AppComponent, TopBarComponent, CategoryDetailsComponent, UserDetailsComponent, NotFoundComponent],
+  declarations: [AppComponent, TopBarComponent, CategoryDetailsComponent, UserDetailsComponent, NotFoundComponent, AuthorsV3Component],
   imports: [
     BrowserModule,
     AppRoutingModule,

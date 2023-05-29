@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'create', component: AuthorDetailsComponent },
   { path: ':id/edit'  , component: AuthorDetailsComponent },
   { path: 'v2'  , component: AuthorsV2Component }
+
 ];
 
 @NgModule({

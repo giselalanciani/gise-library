@@ -8,12 +8,15 @@ import { AuthorDetailsComponent } from './author-details/author-details.componen
 import { AuthorsV2Component } from './authors-v2/authors-v2.component';
 
 
+
 @NgModule({
   declarations: [
     AuthorsComponent,
     AuthorDetailsComponent,
     DeleteAuthorDialog,
     AuthorsV2Component,
+
+
   ],
   imports: [
     CommonModule,
