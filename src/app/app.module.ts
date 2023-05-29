@@ -12,6 +12,7 @@ import { SharedModule } from './shared/shared.module';
 import { CategoryDetailsComponent } from './categories/category-details/category-details.component';
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     CategoryDetailsComponent,
     UserDetailsComponent,
     NotFoundComponent,
+    UnauthorizedComponent,
   ],
   imports: [
     BrowserModule,
