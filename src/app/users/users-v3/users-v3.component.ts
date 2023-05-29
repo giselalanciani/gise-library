@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../models';
 import { UsersService } from '../services/users.service';
@@ -19,19 +20,21 @@ export class UsersV3Component {
 
   constructor(
     public userService: UsersService,
-    public dialogService: MatDialog
+    public dialogService: MatDialog,
+    private activatedRouteService: ActivatedRoute
   ) {
     this.userList$ = this.userService.getUsers();
   }
   ngOnInit(): void {
-    this.userListSubscription = this.userList$.subscribe((users) => {
-      this.userList = users;
-    });
+    this.userListSubscription = this.activatedRouteService.data.subscribe(
+      (data) => {
+        this.userList = data['usersList'];
+      }
+    );
   }
+
   ngOnDestroy(): void {
     this.userListSubscription.unsubscribe();
-    this.removeUserSubscription?.unsubscribe();
-    this.dialogDeleteSubscription?.unsubscribe();
   }
 
   openDeleteDialog(user: IUser) {
