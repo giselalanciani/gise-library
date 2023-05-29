@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { DeleteBookDialog } from '../books/books.component';
@@ -11,7 +11,7 @@ import { BooksService } from '../services/books.service';
   templateUrl: './books-v3.component.html',
   styleUrls: ['./books-v3.component.scss'],
 })
-export class BooksV3Component implements OnInit {
+export class BooksV3Component implements OnInit, OnDestroy {
   bookList$: Observable<IBook[]>;
   bookList: IBook[] = [];
   bookListSubscription!: Subscription;
@@ -26,9 +26,13 @@ export class BooksV3Component implements OnInit {
     this.bookList$ = this.booksServices.getBooks();
   }
   ngOnInit(): void {
-    this.activatedRouteService.data.subscribe((data) => {
+    this.bookListSubscription = this.activatedRouteService.data.subscribe((data) => {
       this.bookList = data['booksList'];
     });
+  }
+
+  ngOnDestroy(): void {
+    this.bookListSubscription.unsubscribe()
   }
 
   openDeleteDialog(book: IBook) {

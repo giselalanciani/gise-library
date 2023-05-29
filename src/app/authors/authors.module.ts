@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthorsRoutingModule } from './authors-routing.module';
-import { AuthorsComponent, DeleteAuthorDialog } from './authors/authors.component';
+import {
+  AuthorsComponent,
+  DeleteAuthorDialog,
+} from './authors/authors.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorsV2Component } from './authors-v2/authors-v2.component';
-
-
+import { AuthorsV3Component } from './authors-v3/authors-v3.component';
 
 @NgModule({
   declarations: [
@@ -15,13 +17,8 @@ import { AuthorsV2Component } from './authors-v2/authors-v2.component';
     AuthorDetailsComponent,
     DeleteAuthorDialog,
     AuthorsV2Component,
-
-
+    AuthorsV3Component,
   ],
-  imports: [
-    CommonModule,
-    AuthorsRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, AuthorsRoutingModule, SharedModule],
 })
-export class AuthorsModule { }
+export class AuthorsModule {}

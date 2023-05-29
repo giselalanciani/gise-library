@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AuthorsV3Resolver } from './authors-v3.resolver';
+import { AuthorsV3Resolver } from './authors.resolver';
 
 describe('AuthorsV3Resolver', () => {
   let resolver: AuthorsV3Resolver;
