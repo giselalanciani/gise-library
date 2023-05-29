@@ -10,11 +10,11 @@ import { Observable, of } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class BooksV2Resolver implements Resolve<{name: string}> {
+export class BooksResolver implements Resolve<{ name: string }[]> {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<{name: string}> {
-    return of({ name: 'harry potter IV' });
+  ): Observable<{ name: string }[]> {
+    return of([{ name: 'harry potter IV' }, { name: 'wally' }]);
   }
 }

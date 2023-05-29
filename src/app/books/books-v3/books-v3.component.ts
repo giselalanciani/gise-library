@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { DeleteBookDialog } from '../books/books.component';
 import { IBook } from '../models';
@@ -19,13 +20,20 @@ export class BooksV3Component implements OnInit {
   dialogDeleteSubscription!: Subscription;
   constructor(
     public booksServices: BooksService,
-    public dialogService: MatDialog
+    public dialogService: MatDialog,
+    private activatedRouteService: ActivatedRoute
   ) {
     this.bookList$ = this.booksServices.getBooks();
   }
   ngOnInit(): void {
     this.bookListSubscription = this.bookList$.subscribe((books) => {
       this.bookList = books;
+    });
+
+    this.activatedRouteService.data.subscribe((data) => {
+      const bookList = data['booksList'];
+
+      console.log('booksList', bookList);
     });
   }
 
@@ -55,5 +63,3 @@ export class BooksV3Component implements OnInit {
       });
   }
 }
-
-

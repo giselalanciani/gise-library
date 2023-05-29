@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BooksV2Component } from './books-v2/books-v2.component';
 import { BooksV3Component } from './books-v3/books-v3.component';
+import { BooksResolver } from './books.resolver';
 import { BooksComponent } from './books/books.component';
 
 const routes: Routes = [
@@ -10,11 +11,17 @@ const routes: Routes = [
   { path: 'create', component: BookDetailsComponent },
   { path: ':id/edit', component: BookDetailsComponent },
   { path: 'v2', component: BooksV2Component },
-  { path: 'v3', component: BooksV3Component }
+  {
+    path: 'v3',
+    component: BooksV3Component,
+    resolve: {
+      booksList: BooksResolver
+    }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class BooksRoutingModule { }
+export class BooksRoutingModule {}
