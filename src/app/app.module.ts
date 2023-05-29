@@ -13,6 +13,7 @@ import { CategoryDetailsComponent } from './categories/category-details/category
 import { UserDetailsComponent } from './users/user-details/user-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     UserDetailsComponent,
     NotFoundComponent,
     UnauthorizedComponent,
+    ErrorComponent,
   ],
   imports: [
     BrowserModule,
