@@ -8,9 +8,11 @@ import {
 } from './categories/categories.component';
 import { SharedModule } from '../shared/shared.module';
 import { CategoriesV2Component } from './categories-v2/categories-v2.component';
+import { CategoriesV3Component } from './categories-v3/categories-v3.component';
+
 
 @NgModule({
-  declarations: [CategoriesComponent, DeleteCategoryDialog, CategoriesV2Component],
+  declarations: [CategoriesComponent, DeleteCategoryDialog, CategoriesV2Component,CategoriesV3Component],
   imports: [CommonModule, CategoriesRoutingModule, SharedModule],
 })
 export class CategoriesModule {}
