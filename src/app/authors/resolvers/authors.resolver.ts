@@ -6,9 +6,9 @@ import {
   ActivatedRouteSnapshot,
 } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
-import { handleError } from '../utils/handleError';
-import { IAuthors } from './models';
-import { AuthorsService } from './services/authors.service';
+import { handleError } from '../../utils/handleError';
+import { IAuthors } from '../models';
+import { AuthorsService } from '../services/authors.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthorDetailsV3Resolver } from './author-details-v3.resolver';
+import { AuthorDetailsV3Resolver } from './resolvers/author-details-v3.resolver';
 import { AuthorDetailsComponentV3 } from './author-details-v3/author-details-v3.component';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorsV2Component } from './authors-v2/authors-v2.component';
 import { AuthorsV3Component } from './authors-v3/authors-v3.component';
-import { AuthorsV3Resolver } from './authors.resolver';
+import { AuthorsV3Resolver } from './resolvers/authors.resolver';
 import { AuthorsComponent } from './authors/authors.component';
 
 const routes: Routes = [
