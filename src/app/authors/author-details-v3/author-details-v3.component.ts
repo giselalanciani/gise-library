@@ -12,7 +12,7 @@ import { AuthorsService } from '../services/authors.service';
   styleUrls: ['./author-details-v3.component.scss'],
 })
 export class AuthorDetailsComponentV3 {
-  public id: number | null = null;
+
   getAuthorSubscription!: Subscription;
   createAuthorSubscription!: Subscription;
   editAuthorSubscription!: Subscription;
@@ -22,24 +22,24 @@ export class AuthorDetailsComponentV3 {
     birthdate: ['', [Validators.required]],
   });
 
+  author: IAuthors | null = null;
+
   constructor(
     public authorService: AuthorsService,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRouteService: ActivatedRoute
   ) {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    if (id !== null) {
-      this.id = parseFloat(id);
-      this.getAuthorSubscription = this.authorService
-        .getAuthor(id)
-        .subscribe((author) => {
-          this.form.controls['name'].setValue(author.name);
-          this.form.controls['birthdate'].setValue(author.birthdate);
-        });
-    }
+    this.getAuthorSubscription = this.activatedRouteService.data.subscribe((data) => {
+      this.author = data['author'];
+      if (this.author !== null) {
+        this.form.controls['name'].setValue(this.author.name);
+        this.form.controls['birthdate'].setValue(this.author.birthdate);
+      }
+    });
   }
+
   minDate = new Date(1900, 0, 1);
   maxDate = new Date(2070, 0, 1);
 
@@ -56,21 +56,21 @@ export class AuthorDetailsComponentV3 {
         birthdate: this.form.controls['birthdate'].value,
         id: '',
       };
-      if (this.id === null) {
+      if (this.author === null) {
         this.createAuthorSubscription?.unsubscribe();
         this.createAuthorSubscription = this.authorService
           .createAuthor(author)
           .subscribe(() => {
             this.snackBar.open('El author fue guardado', 'ok');
-            this.router.navigate(['authors']);
+            this.router.navigate(['authors/v3']);
           });
       } else {
         this.editAuthorSubscription?.unsubscribe();
         this.editAuthorSubscription = this.authorService
-          .editAuthor(this.id, author)
+          .editAuthor(this.author.id, author)
           .subscribe(() => {
             this.snackBar.open('El author fue actualizado', 'ok');
-            this.router.navigate(['authors']);
+            this.router.navigate(['authors/v3']);
           });
       }
     }

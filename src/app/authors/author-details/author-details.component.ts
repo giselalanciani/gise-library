@@ -12,7 +12,7 @@ import { AuthorsService } from '../services/authors.service';
   styleUrls: ['./author-details.component.scss'],
 })
 export class AuthorDetailsComponent {
-  public id: number | null = null;
+  public id: string | null = null;
   getAuthorSubscription!: Subscription;
   createAuthorSubscription!: Subscription;
   editAuthorSubscription!: Subscription;
@@ -31,7 +31,7 @@ export class AuthorDetailsComponent {
   ) {
     const id = this.route.snapshot.paramMap.get('id')!;
     if (id !== null) {
-      this.id = parseFloat(id);
+      this.id = id;
       this.getAuthorSubscription = this.authorService
         .getAuthor(id)
         .subscribe((author) => {

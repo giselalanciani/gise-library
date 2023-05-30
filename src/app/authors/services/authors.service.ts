@@ -17,7 +17,7 @@ export class AuthorsService {
   removeAuthor(id: string) {
     return this.httpClient.delete<IResponseMessage>(`/api/author/${id}`);
   }
-  editAuthor(id: number, author: IAuthors) {
+  editAuthor(id: string, author: IAuthors) {
     return this.httpClient.put<IAuthors>(`/api/author/${id}`, author);
   }
   createAuthor(author: IAuthors) {
