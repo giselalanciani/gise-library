@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorsV2Component } from './authors-v2/authors-v2.component';
 import { AuthorsV3Component } from './authors-v3/authors-v3.component';
+import { AuthorDetailsComponentV3 } from './author-details-v3/author-details-v3.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { AuthorsV3Component } from './authors-v3/authors-v3.component';
     DeleteAuthorDialog,
     AuthorsV2Component,
     AuthorsV3Component,
+    AuthorDetailsComponentV3
   ],
   imports: [CommonModule, AuthorsRoutingModule, SharedModule],
 })

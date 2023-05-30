@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthorDetailsComponentV3 } from './author-details-v3/author-details-v3.component';
 import { AuthorDetailsComponent } from './author-details/author-details.component';
 import { AuthorsV2Component } from './authors-v2/authors-v2.component';
 import { AuthorsV3Component } from './authors-v3/authors-v3.component';
@@ -18,6 +19,8 @@ const routes: Routes = [
       authorList: AuthorsV3Resolver,
     },
   },
+  { path: 'create-v3', component: AuthorDetailsComponentV3 },
+  { path: ':id/edit', component: AuthorDetailsComponentV3 },
 ];
 
 @NgModule({
