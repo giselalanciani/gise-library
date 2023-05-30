@@ -31,7 +31,7 @@ const routes: Routes = [
     path: ':id/edit-v3',
     component: AuthorDetailsComponentV3,
     resolve: {
-      author: AuthorDetailsComponentV3,
+      author: AuthorDetailsV3Resolver,
     },
   },
 ];

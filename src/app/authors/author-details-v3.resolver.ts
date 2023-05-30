@@ -6,7 +6,8 @@ import {
   ActivatedRouteSnapshot,
   ActivatedRoute,
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
+import { handleError } from '../utils/handleError';
 import { IAuthors } from './models';
 import { AuthorsService } from './services/authors.service';
 
@@ -16,16 +17,22 @@ import { AuthorsService } from './services/authors.service';
 export class AuthorDetailsV3Resolver implements Resolve<IAuthors | null> {
   constructor(
     private authorsService: AuthorsService,
-    private activateRouteService: ActivatedRoute
-  ) {}
+    private routerService: Router
+  ) {
+  }
 
   resolve(
-    route: ActivatedRouteSnapshot,
+    activatedRouteService: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<IAuthors | null> {
-    const id = this.activateRouteService.snapshot.paramMap.get('id')!;
+    const id = activatedRouteService.paramMap.get('id')!;
     if (id !== null) {
-      return this.authorsService.getAuthor(id);
+      return this.authorsService.getAuthor(id).pipe(
+        catchError((error) => {
+          handleError(error, this.routerService);
+          return of(null);
+        })
+      );
     } else {
       return of(null);
     }
