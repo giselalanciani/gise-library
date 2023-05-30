@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BooksResolver } from './books.resolver';
+import { GetBookResolver } from './get-book.resolver';
 
-describe('BooksV2Resolver', () => {
-  let resolver: BooksResolver;
+describe('GetBookResolver', () => {
+  let resolver: GetBookResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(BooksResolver);
+    resolver = TestBed.inject(GetBookResolver);
   });
 
   it('should be created', () => {
