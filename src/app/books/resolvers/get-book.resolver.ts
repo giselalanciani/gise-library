@@ -26,7 +26,7 @@ export class GetBookResolver implements Resolve<IBook | null> {
     const id = activatedRouteService.paramMap.get('id')!;
     if (id !== null) {
       this.id = parseFloat(id);
-      return this.booksServices.getBook(this.id).pipe(
+      return this.booksServices.getBook(id).pipe(
         catchError((error) => {
           handleError(error, this.routerService);
           return of(null);

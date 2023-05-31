@@ -11,11 +11,11 @@ export class BooksService {
   getBooks() {
     return this.httpClient.get<IBook[]>('/api/book');
   }
-  getBook(id: number) {
+  getBook(id: string) {
     return this.httpClient.get<IBook>(`/api/book/${id}`);
   }
 
-  removeBook(id: number) {
+  removeBook(id: string) {
     return this.httpClient.delete<IResponseMessage>(`/api/book/${id}`);
   }
 
@@ -23,7 +23,7 @@ export class BooksService {
     return this.httpClient.post<IResponseMessage>(`/api/book`, book);
   }
 
-  editBook(id: number, book: IBook) {
+  editBook(id: string, book: IBook) {
     return this.httpClient.put<IBook>(`/api/book/${id}`, book);
   }
 }
