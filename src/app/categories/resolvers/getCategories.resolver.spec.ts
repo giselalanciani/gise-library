@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CategoriesResolver } from './categories.resolver';
+import { CategoriesResolver } from './getCategories.resolver';
 
 describe('CategoriesResolver', () => {
   let resolver: CategoriesResolver;
