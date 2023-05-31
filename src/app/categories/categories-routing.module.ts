@@ -4,6 +4,7 @@ import { CategoriesV2Component } from './categories-v2/categories-v2.component';
 import { CategoriesV3Component } from './categories-v3/categories-v3.component';
 import { CategoriesResolver } from './categories.resolver';
 import { CategoriesComponent } from './categories/categories.component';
+import { CategoryDetailsComponentV3 } from './category-details-v3/category-details-v3.component';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 
 const routes: Routes = [
@@ -18,6 +19,8 @@ const routes: Routes = [
       categoriesList: CategoriesResolver,
     },
   },
+  { path: 'create-v3', component: CategoryDetailsComponentV3 },
+  { path: ':id/edit-v3', component: CategoryDetailsComponentV3 },
 ];
 
 @NgModule({
