@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { CountryDetailsComponent } from './country-details/country-details.component';
 import { CountriesV2Component } from './countries-v2/countries-v2.component';
 import { CountriesV3Component } from './countries-v3/countries-v3.component';
+import { CountryDetailsComponentV3 } from './country-details-v3/country-details-v3.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CountriesV3Component } from './countries-v3/countries-v3.component';
     CountryDetailsComponent,
     CountriesV2Component,
     CountriesV3Component,
+    CountryDetailsComponentV3,
   ],
   imports: [CommonModule, CountriesRoutingModule, SharedModule],
 })

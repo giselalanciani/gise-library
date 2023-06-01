@@ -17,7 +17,10 @@ const routes: Routes = [
   { path: 'v3', component: CountriesV3Component,resolve: {
     countriesList: CountriesResolver
   }
-  }
+  },
+
+
+
 ];
 
 @NgModule({
