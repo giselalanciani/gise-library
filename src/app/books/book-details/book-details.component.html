@@ -1,5 +1,5 @@
-<h2 *ngIf="this.book !== null">Edit</h2>
-<h2 *ngIf="this.book === null">Create</h2>
+<h2 *ngIf="this.id !== null">Edit</h2>
+<h2 *ngIf="this.id === null">Create</h2>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="outline">
@@ -33,6 +33,6 @@
   </mat-form-field>
 
 
-  <button *ngIf="this.book === null" mat-raised-button type="submit" color="primary">Create</button>
-  <button *ngIf="this.book !== null" mat-raised-button type="submit" color="primary">Update</button>
+  <button *ngIf="this.id === null" mat-raised-button type="submit" color="primary">Create</button>
+  <button *ngIf="this.id !== null" mat-raised-button type="submit" color="primary">Update</button>
 </form>

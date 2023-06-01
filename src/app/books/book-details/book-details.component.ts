@@ -12,7 +12,7 @@ import { BooksService } from '../services/books.service';
   styleUrls: ['./book-details.component.scss'],
 })
 export class BookDetailsComponent implements OnDestroy {
-  book: IBook | null = null;
+  public id: string | null = null;
 
   getBookSubscription!: Subscription;
   editBookSubscription!: Subscription;
@@ -27,22 +27,21 @@ export class BookDetailsComponent implements OnDestroy {
 
   constructor(
     public booksServices: BooksService,
-    private activatedRouteService: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.getBookSubscription = this.activatedRouteService.data.subscribe(
-      (data) => {
-        this.book = data['book'];
-        if (this.book !== null) {
-          this.form.controls['name'].setValue(this.book.name);
-          this.form.controls['author'].setValue(this.book.author);
-          this.form.controls['stock'].setValue(this.book.stock);
-          this.form.controls['price'].setValue(this.book.price);
-        }
-      }
-    );
+    const id = this._route.snapshot.paramMap.get('id')!;
+    if (id !== null) {
+      this.id = id;
+      this.getBookSubscription = this.booksServices.getBook(this.id).subscribe((book) => {
+        this.form.controls['name'].setValue(book.name);
+        this.form.controls['author'].setValue(book.author);
+        this.form.controls['stock'].setValue(book.stock);
+        this.form.controls['price'].setValue(book.price);
+      });
+    }
   }
   ngOnDestroy(): void {
     this.getBookSubscription?.unsubscribe();
@@ -60,27 +59,24 @@ export class BookDetailsComponent implements OnDestroy {
         editorial: 0,
         categories: [],
         year: 0,
-        id: '',
+        id: ''
       };
 
-      if (this.book === null) {
+      if (this.id === null) {
         // IS create
         this.createBookSubscription?.unsubscribe();
-        this.createBookSubscription = this.booksServices
-          .createBook(book)
-          .subscribe(() => {
-            this._snackBar.open('El libro fue guardado', 'ok');
-            this.router.navigate(['books']);
-          });
+        this.createBookSubscription = this.booksServices.createBook(book).subscribe(() => {
+          console.log('redireccionamos al la pagina de listado.');
+          this._snackBar.open('El libro fue guardado', 'ok');
+          this.router.navigate(['books']);
+        });
       } else {
         // Is Edit
         this.editBookSubscription?.unsubscribe();
-        this.editBookSubscription = this.booksServices
-          .editBook(this.book.id, book)
-          .subscribe(() => {
-            this._snackBar.open('El libro fue actualizado', 'ok');
-            this.router.navigate(['books']);
-          });
+        this.editBookSubscription = this.booksServices.editBook(this.id, book).subscribe(() => {
+          this._snackBar.open('El libro fue actualizado', 'ok');
+          this.router.navigate(['books']);
+        });
       }
     } else {
       console.log('No fue valido, el user debe corregir los errors');

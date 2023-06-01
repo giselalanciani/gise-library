@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetCountryResolver } from './get-country.resolver';
+import { GetCountryResolver } from './getCountry.resolver';
 
 describe('GetCountryResolver', () => {
   let resolver: GetCountryResolver;
