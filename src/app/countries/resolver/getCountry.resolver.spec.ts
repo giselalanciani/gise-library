@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CountriesResolver } from './countries.resolver';
+import { GetCountryResolver } from './get-country.resolver';
 
-describe('CountriesResolver', () => {
-  let resolver: CountriesResolver;
+describe('GetCountryResolver', () => {
+  let resolver: GetCountryResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(CountriesResolver);
+    resolver = TestBed.inject(GetCountryResolver);
   });
 
   it('should be created', () => {
