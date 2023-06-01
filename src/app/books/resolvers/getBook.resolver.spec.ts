@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GetBookResolver } from './get-book.resolver';
+import { GetBookResolver } from './getBook.resolver';
 
 describe('GetBookResolver', () => {
   let resolver: GetBookResolver;

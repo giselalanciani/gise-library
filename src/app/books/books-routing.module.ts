@@ -6,7 +6,7 @@ import { BooksV3Component } from './books-v3/books-v3.component';
 import { BooksResolver } from './resolvers/getBooks.resolver';
 import { BooksComponent } from './books/books.component';
 import { BookDetailsComponentV3 } from './book-details-v3/book-details-v3.component';
-import { GetBookResolver } from './resolvers/get-book.resolver';
+import { GetBookResolver } from './resolvers/getBook.resolver';
 
 const routes: Routes = [
   { path: '', component: BooksComponent },
