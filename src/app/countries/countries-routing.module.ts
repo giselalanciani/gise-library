@@ -6,6 +6,7 @@ import { CountriesResolver } from './resolver/getCountries.resolver';
 import { CountriesComponent } from './countries/countries.component';
 import { CountryDetailsComponent } from './country-details/country-details.component';
 import { CountryDetailsComponentV3 } from './country-details-v3/country-details-v3.component';
+import { GetCountryResolver } from './resolver/getCountry.resolver';
 
 const routes: Routes = [
   {
@@ -22,8 +23,20 @@ const routes: Routes = [
       countriesList: CountriesResolver,
     },
   },
-  { path: 'create-v3', component: CountryDetailsComponentV3 },
-  { path: ':id/edit-v3', component: CountryDetailsComponentV3 },
+  {
+    path: 'create-v3',
+    component: CountryDetailsComponentV3,
+    resolve: {
+      country: GetCountryResolver,
+    },
+  },
+  {
+    path: ':id/edit-v3',
+    component: CountryDetailsComponentV3,
+    resolve: {
+      country: GetCountryResolver,
+    },
+  },
 ];
 
 @NgModule({

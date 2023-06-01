@@ -12,7 +12,7 @@ import { CountriesService } from '../services/countries.service';
   styleUrls: ['./country-details-v3.component.scss'],
 })
 export class CountryDetailsComponentV3 implements OnDestroy {
-  public id: string | null = null;
+  country: ICountry | null = null;
 
   getCountrySubscription!: Subscription;
   editCountrySubscription!: Subscription;
@@ -23,20 +23,19 @@ export class CountryDetailsComponentV3 implements OnDestroy {
   });
   constructor(
     public countryServices: CountriesService,
-    private route: ActivatedRoute,
+    private activatedRouteService: ActivatedRoute,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
-    const id = this.route.snapshot.paramMap.get('id')!;
-    if (id !== null) {
-      this.id = id;
-      this.getCountrySubscription = this.countryServices
-        .getCountry(id)
-        .subscribe((country) => {
-          this.form.controls['name'].setValue(country.name);
-        });
-    }
+    this.getCountrySubscription = this.activatedRouteService.data.subscribe(
+      (data) => {
+        this.country = data['country'];
+        if (this.country !== null) {
+          this.form.controls['name'].setValue(this.country.name);
+        }
+      }
+    );
   }
   ngOnDestroy(): void {
     this.getCountrySubscription?.unsubscribe();
@@ -47,10 +46,10 @@ export class CountryDetailsComponentV3 implements OnDestroy {
     if (this.form.valid === true) {
       const country: ICountry = {
         name: this.form.controls['name'].value,
-        id: ''
+        id: '',
       };
 
-      if (this.id === null) {
+      if (this.country === null) {
         this.createCountrySubscription?.unsubscribe();
         this.createCountrySubscription = this.countryServices
           .createCountry(country)
@@ -59,16 +58,13 @@ export class CountryDetailsComponentV3 implements OnDestroy {
             this.router.navigate(['countries']);
           });
       } else {
-
-          this.editCountrySubscription?.unsubscribe();
-          this.editCountrySubscription = this.countryServices
-            .editCountry(this.id, country)
-            .subscribe(() => {
-              this.snackBar.open('El país fue actualizado', 'ok');
-              this.router.navigate(['countries']);
-            });
-
-
+        this.editCountrySubscription?.unsubscribe();
+        this.editCountrySubscription = this.countryServices
+          .editCountry(this.country.id, country)
+          .subscribe(() => {
+            this.snackBar.open('El país fue actualizado', 'ok');
+            this.router.navigate(['countries']);
+          });
       }
     }
   }
