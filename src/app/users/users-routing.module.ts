@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UsersV2Component } from './users-v2/users-v2.component';
 import { UsersV3Component } from './users-v3/users-v3.component';
-import { UsersResolver } from './users.resolver';
+import { UsersResolver } from './resolver/getUsers.resolver';
 import { UsersComponent } from './users/users.component';
+import { UserDetailsComponentV3 } from './user-details-v3/user-details-v3.component';
+import { GetUserResolver } from './resolver/getUser.resolver';
 
 const routes: Routes = [
   { path: '', component: UsersComponent },
@@ -16,6 +18,20 @@ const routes: Routes = [
     component: UsersV3Component,
     resolve: {
       usersList: UsersResolver,
+    },
+  },
+  {
+    path: 'create-v3',
+    component: UserDetailsComponentV3,
+    resolve: {
+      user: GetUserResolver,
+    },
+  },
+  {
+    path: ':id/edit-v3',
+    component: UserDetailsComponentV3,
+    resolve: {
+      user: GetUserResolver,
     },
   },
 ];

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UsersResolver } from './users.resolver';
+import { UsersResolver } from './getUsers.resolver';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
