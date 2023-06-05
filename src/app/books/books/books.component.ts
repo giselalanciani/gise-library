@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { IBook } from '../models';
@@ -12,7 +13,7 @@ import { BooksService } from '../services/books.service';
 })
 export class BooksComponent implements OnInit, OnDestroy {
   bookList$: Observable<IBook[]>;
-  bookList: IBook[] = [];
+  bookList = new MatTableDataSource<IBook>([]);
   bookListSubscription!: Subscription;
 
   removeBookSubscription!: Subscription;
@@ -30,9 +31,13 @@ export class BooksComponent implements OnInit, OnDestroy {
     this.bookList$ = this.booksServices.getBooks();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.bookList.filter = filterValue.trim().toLowerCase();
+  }
   ngOnInit(): void {
     this.bookListSubscription = this.bookList$.subscribe((books) => {
-      this.bookList = books;
+      this.bookList.data = books;
     });
   }
 
@@ -56,7 +61,7 @@ export class BooksComponent implements OnInit, OnDestroy {
             .subscribe(() => {
               this.bookListSubscription.unsubscribe();
               this.bookListSubscription = this.bookList$.subscribe((books) => {
-                this.bookList = books;
+                this.bookList.data = books;
               });
             });
         }

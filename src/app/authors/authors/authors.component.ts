@@ -13,16 +13,17 @@ import { AuthorsService } from '../services/authors.service';
 export class AuthorsComponent implements OnInit, OnDestroy {
   authorList$: Observable<IAuthors[]>;
   authorList = new MatTableDataSource<IAuthors>([]);
-  authorListSubscription!: Subscription
+  authorListSubscription!: Subscription;
   removeAuthorSubscription!: Subscription;
 
-  dialogDeleteSubscription! : Subscription;
+  dialogDeleteSubscription!: Subscription;
 
   columnsToDisplay = ['name', 'birthdate', 'actions'];
-  // dataSource = new MatTableDataSource(this.authorList);
 
-
-  constructor(public authorsServices: AuthorsService, public dialogService: MatDialog ) {
+  constructor(
+    public authorsServices: AuthorsService,
+    public dialogService: MatDialog
+  ) {
     this.authorList$ = this.authorsServices.getAuthors();
   }
   applyFilter(event: Event) {
@@ -40,31 +41,32 @@ export class AuthorsComponent implements OnInit, OnDestroy {
     this.authorListSubscription.unsubscribe();
   }
 
-  openDeleteDialog(author:IAuthors){
-    const dialogRef = this.dialogService.open(DeleteAuthorDialog, { data: author });
-    this.dialogDeleteSubscription?.unsubscribe();
-    this.dialogDeleteSubscription = dialogRef.afterClosed().subscribe((data) => {
-      if (data === true) {
-        this.removeAuthorSubscription?.unsubscribe();
-
-        if (author.id !== undefined) {
-          this.removeAuthorSubscription = this.authorsServices
-            .removeAuthor(author.id)
-            .subscribe(() => {
-              this.authorListSubscription.unsubscribe();
-              this.authorListSubscription = this.authorList$.subscribe((author) => {
-                this.authorList.data = author;
-              });
-            });
-        }
-      }
+  openDeleteDialog(author: IAuthors) {
+    const dialogRef = this.dialogService.open(DeleteAuthorDialog, {
+      data: author,
     });
+    this.dialogDeleteSubscription?.unsubscribe();
+    this.dialogDeleteSubscription = dialogRef
+      .afterClosed()
+      .subscribe((data) => {
+        if (data === true) {
+          this.removeAuthorSubscription?.unsubscribe();
 
+          if (author.id !== undefined) {
+            this.removeAuthorSubscription = this.authorsServices
+              .removeAuthor(author.id)
+              .subscribe(() => {
+                this.authorListSubscription.unsubscribe();
+                this.authorListSubscription = this.authorList$.subscribe(
+                  (author) => {
+                    this.authorList.data = author;
+                  }
+                );
+              });
+          }
+        }
+      });
   }
-
-
-
-
 }
 @Component({
   selector: 'delete-author-dialog',
