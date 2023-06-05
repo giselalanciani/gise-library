@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { ICategory } from '../models';
 import { CategoriesService } from '../services/categories.service';
@@ -11,7 +12,7 @@ import { CategoriesService } from '../services/categories.service';
 })
 export class CategoriesComponent implements OnInit {
   categoryList$: Observable<ICategory[]>;
-  categoryList: ICategory[] = [];
+  categoryList = new MatTableDataSource<ICategory>([]);
   categoryListSubscription!: Subscription;
   removeCategorySubscription!: Subscription;
 
@@ -23,11 +24,15 @@ export class CategoriesComponent implements OnInit {
   ) {
     this.categoryList$ = this.categoryServices.getCategories();
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.categoryList.filter = filterValue.trim().toLowerCase();
+  }
 
   ngOnInit(): void {
     this.categoryListSubscription = this.categoryList$.subscribe(
       (categories) => {
-        this.categoryList = categories;
+        this.categoryList.data = categories;
       }
     );
   }
@@ -50,7 +55,7 @@ export class CategoriesComponent implements OnInit {
                 this.categoryListSubscription.unsubscribe();
                 this.categoryListSubscription = this.categoryList$.subscribe(
                   (categories) => {
-                    this.categoryList = categories;
+                    this.categoryList.data = categories;
                   }
                 );
               });

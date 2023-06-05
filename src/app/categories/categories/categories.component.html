@@ -1,7 +1,13 @@
 <h2>Categories</h2>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
 <a mat-raised-button color="primary" [routerLink]="['create']">
   <mat-icon>add</mat-icon> Create
 </a>
+
 <table mat-table [dataSource]="categoryList" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
