@@ -1,5 +1,6 @@
 import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { IAuthors } from '../models';
 import { AuthorsService } from '../services/authors.service';
@@ -11,22 +12,27 @@ import { AuthorsService } from '../services/authors.service';
 })
 export class AuthorsComponent implements OnInit, OnDestroy {
   authorList$: Observable<IAuthors[]>;
-  authorList: IAuthors[] = [];
+  authorList = new MatTableDataSource<IAuthors>([]);
   authorListSubscription!: Subscription
   removeAuthorSubscription!: Subscription;
 
   dialogDeleteSubscription! : Subscription;
 
   columnsToDisplay = ['name', 'birthdate', 'actions'];
+  // dataSource = new MatTableDataSource(this.authorList);
 
 
   constructor(public authorsServices: AuthorsService, public dialogService: MatDialog ) {
     this.authorList$ = this.authorsServices.getAuthors();
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.authorList.filter = filterValue.trim().toLowerCase();
+  }
 
   ngOnInit(): void {
     this.authorListSubscription = this.authorList$.subscribe((authors) => {
-      this.authorList = authors;
+      this.authorList.data = authors;
     });
   }
 
@@ -47,7 +53,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
             .subscribe(() => {
               this.authorListSubscription.unsubscribe();
               this.authorListSubscription = this.authorList$.subscribe((author) => {
-                this.authorList = author;
+                this.authorList.data = author;
               });
             });
         }
