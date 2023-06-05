@@ -1,5 +1,6 @@
 import { Component, Inject,OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../models';
 import { UsersService } from '../services/users.service';
@@ -11,7 +12,7 @@ import { UsersService } from '../services/users.service';
 })
 export class UsersComponent implements OnInit, OnDestroy {
   userList$: Observable<IUser[]>;
-  userList: IUser[] = [];
+  userList = new MatTableDataSource<IUser>([]);
   userListSubscription!: Subscription;
   removeUserSubscription!: Subscription;
   dialogDeleteSubscription!: Subscription;
@@ -24,9 +25,15 @@ export class UsersComponent implements OnInit, OnDestroy {
   ) {
     this.userList$ = this.userService.getUsers();
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.userList.filter = filterValue.trim().toLowerCase();
+  }
+
   ngOnInit(): void {
     this.userListSubscription = this.userList$.subscribe((users) => {
-      this.userList = users;
+      this.userList.data = users;
     });
   }
 
@@ -50,7 +57,7 @@ export class UsersComponent implements OnInit, OnDestroy {
             .subscribe(() => {
               this.userListSubscription.unsubscribe();
               this.userListSubscription = this.userList$.subscribe((users) => {
-                this.userList = users;
+                this.userList.data = users;
               });
             });
         }
