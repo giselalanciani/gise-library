@@ -1,5 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { ICountry } from '../models';
 import { CountriesService } from '../services/countries.service';
@@ -11,7 +12,7 @@ import { CountriesService } from '../services/countries.service';
 })
 export class CountriesComponent implements OnInit, OnDestroy {
   countryList$: Observable<ICountry[]>;
-  countryList: ICountry[] = [];
+  countryList = new MatTableDataSource<ICountry>([]);
   countryListSubscription!: Subscription;
   removeCountrySubscription!: Subscription;
   dialogDeleteSubscription! : Subscription;
@@ -22,9 +23,13 @@ export class CountriesComponent implements OnInit, OnDestroy {
     this.countryList$ = this.countryServices.getCountries();
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.countryList.filter = filterValue.trim().toLowerCase();
+  }
   ngOnInit(): void {
     this.countryListSubscription = this.countryList$.subscribe((countries) => {
-      this.countryList = countries;
+      this.countryList.data = countries;
     });
   }
   ngOnDestroy(): void {
@@ -46,7 +51,7 @@ export class CountriesComponent implements OnInit, OnDestroy {
             .subscribe(() => {
               this.countryListSubscription.unsubscribe();
               this.countryListSubscription = this.countryList$.subscribe((countries) => {
-                this.countryList = countries;
+                this.countryList.data = countries;
               });
             });
         }
