@@ -14,6 +14,7 @@ import { DeleteUserDialog } from '../users/users.component';
 export class UsersV3Component {
   userList$: Observable<IUser[]>;
   userList: IUser[] = [];
+  filteredUserList: IUser[] = [];
   userListSubscription!: Subscription;
   removeUserSubscription!: Subscription;
   dialogDeleteSubscription!: Subscription;
@@ -29,10 +30,20 @@ export class UsersV3Component {
     this.userListSubscription = this.activatedRouteService.data.subscribe(
       (data) => {
         this.userList = data['usersList'];
+        this.filteredUserList = data['usersList'];
       }
     );
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.filteredUserList = this.userList.filter(
+      (user) =>
+        user.name.toLowerCase().includes(filterValue) ||
+        user.email.toLowerCase().includes(filterValue)
+    );
+  }
   ngOnDestroy(): void {
     this.userListSubscription.unsubscribe();
   }
@@ -55,6 +66,7 @@ export class UsersV3Component {
                 this.userListSubscription = this.userList$.subscribe(
                   (users) => {
                     this.userList = users;
+                    this.filteredUserList = users;
                   }
                 );
               });
