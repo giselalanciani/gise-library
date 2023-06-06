@@ -2,6 +2,12 @@
 <a mat-raised-button color="primary" [routerLink]="['/', 'authors', 'create-v3']">
   <mat-icon>add</mat-icon> Create
 </a>
+
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
 <table class="library-table">
   <thead>
     <tr>
@@ -10,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let author of authorList">
+    <tr *ngFor ="let author of filteredAuthorList" >
       <td>
         {{ author.name }}
       </td>

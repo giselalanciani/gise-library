@@ -14,6 +14,7 @@ import { AuthorsService } from '../services/authors.service';
 export class AuthorsV3Component implements OnInit, OnDestroy {
   authorList$: Observable<IAuthors[]>;
   authorList: IAuthors[] = [];
+  filteredAuthorList: IAuthors[] = [];
   authorListSubscription!: Subscription;
   removeAuthorSubscription!: Subscription;
 
@@ -31,11 +32,20 @@ export class AuthorsV3Component implements OnInit, OnDestroy {
     this.authorListSubscription = this.activatedRouteService.data.subscribe(
       (data) => {
         this.authorList = data['authorList'];
+        this.filteredAuthorList = data['authorList'];
       }
     );
   }
   ngOnDestroy(): void {
     this.authorListSubscription.unsubscribe();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.filteredAuthorList = this.authorList.filter((author) =>
+      author.name.toLowerCase().includes(filterValue)
+    );
   }
 
   openDeleteDialog(author: IAuthors) {
@@ -55,8 +65,9 @@ export class AuthorsV3Component implements OnInit, OnDestroy {
               .subscribe(() => {
                 this.authorListSubscription.unsubscribe();
                 this.authorListSubscription = this.authorList$.subscribe(
-                  (author) => {
-                    this.authorList = author;
+                  (authors) => {
+                    this.authorList = authors;
+                    this.filteredAuthorList = authors;
                   }
                 );
               });

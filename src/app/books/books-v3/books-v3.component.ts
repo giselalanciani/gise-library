@@ -14,6 +14,7 @@ import { BooksService } from '../services/books.service';
 export class BooksV3Component implements OnInit, OnDestroy {
   bookList$: Observable<IBook[]>;
   bookList: IBook[] = [];
+  filteredBookList: IBook[] = [];
   bookListSubscription!: Subscription;
   removeBookSubscription!: Subscription;
 
@@ -29,7 +30,16 @@ export class BooksV3Component implements OnInit, OnDestroy {
     this.bookListSubscription = this.activatedRouteService.data.subscribe(
       (data) => {
         this.bookList = data['booksList'];
+        this.filteredBookList = data['booksList'];
       }
+    );
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.filteredBookList = this.bookList.filter((book) =>
+      book.name.toLowerCase().includes(filterValue) ||
+      book.author.toLowerCase().includes(filterValue)
     );
   }
 
@@ -55,6 +65,7 @@ export class BooksV3Component implements OnInit, OnDestroy {
                 this.bookListSubscription = this.bookList$.subscribe(
                   (books) => {
                     this.bookList = books;
+                    this.filteredBookList = books;
                   }
                 );
               });
