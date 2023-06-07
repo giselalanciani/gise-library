@@ -1,5 +1,6 @@
-import { Component, Inject,OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { IUser } from '../models';
@@ -19,6 +20,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   columnsToDisplay = ['name', 'email', 'password', 'role', 'actions'];
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
     public userService: UsersService,
     public dialogService: MatDialog
@@ -37,6 +40,10 @@ export class UsersComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit() {
+    this.userList.sort = this.sort;
+  }
+
   ngOnDestroy(): void {
     this.userListSubscription.unsubscribe();
     this.removeUserSubscription?.unsubscribe();
@@ -47,22 +54,26 @@ export class UsersComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialogService.open(DeleteUserDialog, { data: user });
 
     this.dialogDeleteSubscription?.unsubscribe();
-    this.dialogDeleteSubscription = dialogRef.afterClosed().subscribe((data) => {
-      if (data === true) {
-        this.removeUserSubscription?.unsubscribe();
+    this.dialogDeleteSubscription = dialogRef
+      .afterClosed()
+      .subscribe((data) => {
+        if (data === true) {
+          this.removeUserSubscription?.unsubscribe();
 
-        if (user.id !== undefined) {
-          this.removeUserSubscription = this.userService
-            .removeUser(user.id)
-            .subscribe(() => {
-              this.userListSubscription.unsubscribe();
-              this.userListSubscription = this.userList$.subscribe((users) => {
-                this.userList.data = users;
+          if (user.id !== undefined) {
+            this.removeUserSubscription = this.userService
+              .removeUser(user.id)
+              .subscribe(() => {
+                this.userListSubscription.unsubscribe();
+                this.userListSubscription = this.userList$.subscribe(
+                  (users) => {
+                    this.userList.data = users;
+                  }
+                );
               });
-            });
+          }
         }
-      }
-    });
+      });
   }
 }
 
@@ -73,4 +84,3 @@ export class UsersComponent implements OnInit, OnDestroy {
 export class DeleteUserDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: IUser) {}
 }
-
