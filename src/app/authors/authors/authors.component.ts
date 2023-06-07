@@ -22,6 +22,8 @@ export class AuthorsComponent implements OnInit, OnDestroy {
 
   columnsToDisplay = ['name', 'birthdate', 'actions'];
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(
     public authorsServices: AuthorsService,
     public dialogService: MatDialog
@@ -32,7 +34,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
     const filterValue = (event.target as HTMLInputElement).value;
     this.authorList.filter = filterValue.trim().toLowerCase();
   }
-  @ViewChild(MatSort) sort!: MatSort;
+
 
   ngOnInit(): void {
     this.authorListSubscription = this.authorList$.subscribe((authors) => {
