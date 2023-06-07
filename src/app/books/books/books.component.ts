@@ -1,5 +1,6 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -18,10 +19,11 @@ export class BooksComponent implements OnInit, OnDestroy {
 
   removeBookSubscription!: Subscription;
 
-  dialogDeleteSubscription! : Subscription;
+  dialogDeleteSubscription!: Subscription;
 
   columnsToDisplay = ['name', 'author', 'stock', 'price', 'actions'];
 
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public booksServices: BooksService,
@@ -40,6 +42,9 @@ export class BooksComponent implements OnInit, OnDestroy {
       this.bookList.data = books;
     });
   }
+  ngAfterViewInit() {
+    this.bookList.sort = this.sort;
+  }
 
   ngOnDestroy(): void {
     this.bookListSubscription.unsubscribe();
@@ -51,22 +56,26 @@ export class BooksComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialogService.open(DeleteBookDialog, { data: book });
 
     this.dialogDeleteSubscription?.unsubscribe();
-    this.dialogDeleteSubscription = dialogRef.afterClosed().subscribe((data) => {
-      if (data === true) {
-        this.removeBookSubscription?.unsubscribe();
+    this.dialogDeleteSubscription = dialogRef
+      .afterClosed()
+      .subscribe((data) => {
+        if (data === true) {
+          this.removeBookSubscription?.unsubscribe();
 
-        if (book.id !== undefined) {
-          this.removeBookSubscription = this.booksServices
-            .removeBook(book.id)
-            .subscribe(() => {
-              this.bookListSubscription.unsubscribe();
-              this.bookListSubscription = this.bookList$.subscribe((books) => {
-                this.bookList.data = books;
+          if (book.id !== undefined) {
+            this.removeBookSubscription = this.booksServices
+              .removeBook(book.id)
+              .subscribe(() => {
+                this.bookListSubscription.unsubscribe();
+                this.bookListSubscription = this.bookList$.subscribe(
+                  (books) => {
+                    this.bookList.data = books;
+                  }
+                );
               });
-            });
+          }
         }
-      }
-    });
+      });
   }
 }
 
