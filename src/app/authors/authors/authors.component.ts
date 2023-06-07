@@ -1,5 +1,7 @@
-import { Component, Inject, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { IAuthors } from '../models';
@@ -30,6 +32,7 @@ export class AuthorsComponent implements OnInit, OnDestroy {
     const filterValue = (event.target as HTMLInputElement).value;
     this.authorList.filter = filterValue.trim().toLowerCase();
   }
+  @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit(): void {
     this.authorListSubscription = this.authorList$.subscribe((authors) => {
@@ -39,6 +42,10 @@ export class AuthorsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.authorListSubscription.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.authorList.sort = this.sort;
   }
 
   openDeleteDialog(author: IAuthors) {
