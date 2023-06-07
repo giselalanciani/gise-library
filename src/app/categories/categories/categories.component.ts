@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { ICategory } from '../models';
@@ -17,6 +18,8 @@ export class CategoriesComponent implements OnInit {
   removeCategorySubscription!: Subscription;
 
   columnsToDisplay = ['name', 'actions'];
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     public categoryServices: CategoriesService,
@@ -36,6 +39,10 @@ export class CategoriesComponent implements OnInit {
       }
     );
   }
+  ngAfterViewInit() {
+    this.categoryList.sort = this.sort;
+  }
+
   openDeleteDialog(category: ICategory) {
     const dialogRef = this.dialogService.open(DeleteCategoryDialog, {
       data: category,
