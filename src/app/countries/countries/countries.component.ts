@@ -1,5 +1,6 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable, Subscription } from 'rxjs';
 import { ICountry } from '../models';
@@ -19,6 +20,8 @@ export class CountriesComponent implements OnInit, OnDestroy {
 
   columnsToDisplay = ['name', 'actions'];
 
+  @ViewChild(MatSort) sort!: MatSort;
+
   constructor(public countryServices: CountriesService, public dialogService: MatDialog) {
     this.countryList$ = this.countryServices.getCountries();
   }
@@ -32,6 +35,10 @@ export class CountriesComponent implements OnInit, OnDestroy {
       this.countryList.data = countries;
     });
   }
+  ngAfterViewInit() {
+    this.countryList.sort = this.sort;
+  }
+
   ngOnDestroy(): void {
     this.countryListSubscription.unsubscribe();
     this.removeCountrySubscription?.unsubscribe();
