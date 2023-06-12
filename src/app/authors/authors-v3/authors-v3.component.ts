@@ -20,6 +20,11 @@ export class AuthorsV3Component implements OnInit, OnDestroy {
 
   dialogDeleteSubscription!: Subscription;
 
+  sortState: { column: string; order: 'asc' | 'desc' } = {
+    column: '',
+    order: 'desc',
+  };
+
   constructor(
     public authorsServices: AuthorsService,
     public dialogService: MatDialog,
@@ -34,6 +39,30 @@ export class AuthorsV3Component implements OnInit, OnDestroy {
         this.authorList = data['authorList'];
         this.filteredAuthorList = data['authorList'];
       }
+    );
+  }
+  sortTable(event: Event) {
+    const element = event.target as HTMLTableCellElement;
+    const columnName = element.getAttribute('name');
+
+    switch (columnName) {
+      case 'name':
+        this.sortState = {
+          column: 'name',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyName(this.sortState.order);
+        break;
+
+      default:
+        break;
+    }
+  }
+  sortByPropertyName(order: 'asc' | 'desc') {
+    this.filteredAuthorList.sort((a, b) =>
+      order === 'asc'
+        ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
     );
   }
   ngOnDestroy(): void {
