@@ -19,6 +19,11 @@ export class UsersV3Component {
   removeUserSubscription!: Subscription;
   dialogDeleteSubscription!: Subscription;
 
+  sortState: { column: string; order: 'asc' | 'desc' } = {
+    column: '',
+    order: 'desc',
+  };
+
   constructor(
     public userService: UsersService,
     public dialogService: MatDialog,
@@ -44,6 +49,73 @@ export class UsersV3Component {
         user.email.toLowerCase().includes(filterValue)
     );
   }
+  sortTable(event: Event) {
+    const element = event.target as HTMLTableCellElement;
+    const columnName = element.getAttribute('name');
+
+    switch (columnName) {
+      case 'name':
+        this.sortState = {
+          column: 'name',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyName(this.sortState.order);
+        break;
+      case 'email':
+        this.sortState = {
+          column: 'email',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyEmail(this.sortState.order);
+        break;
+      case 'password':
+        this.sortState = {
+          column: 'password',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyPassword(this.sortState.order);
+        break;
+      case 'role':
+        this.sortState = {
+          column: 'role',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyRole(this.sortState.order);
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByPropertyName(order: 'asc' | 'desc') {
+    this.filteredUserList.sort((a, b) =>
+      order === 'asc'
+        ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+    );
+  }
+  sortByPropertyEmail(order: 'asc' | 'desc') {
+    this.filteredUserList.sort((a, b) =>
+      order === 'asc'
+        ? a.email.toLowerCase().localeCompare(b.email.toLowerCase())
+        : b.email.toLowerCase().localeCompare(a.email.toLowerCase())
+    );
+  }
+  sortByPropertyPassword(order: 'asc' | 'desc') {
+    this.filteredUserList.sort((a, b) =>
+      order === 'asc'
+        ? a.password.toLowerCase().localeCompare(b.password.toLowerCase())
+        : b.password.toLowerCase().localeCompare(a.password.toLowerCase())
+    );
+  }
+  sortByPropertyRole(order: 'asc' | 'desc') {
+    this.filteredUserList.sort((a, b) =>
+      order === 'asc'
+        ? a.role.toLowerCase().localeCompare(b.role.toLowerCase())
+        : b.role.toLowerCase().localeCompare(a.role.toLowerCase())
+    );
+  }
+
   ngOnDestroy(): void {
     this.userListSubscription.unsubscribe();
   }
