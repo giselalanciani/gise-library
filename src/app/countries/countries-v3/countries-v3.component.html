@@ -2,15 +2,20 @@
 <a mat-raised-button color="primary" [routerLink]="['/', 'countries', 'create-v3']">
   <mat-icon>add</mat-icon> Create
 </a>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+</mat-form-field>
+
 <table class="library-table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th name="name" (click)="sortTable($event)">Name</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let country of countryList">
+    <tr *ngFor="let country of filteredCountryList">
       <td>
         {{ country.name }}
       </td>
