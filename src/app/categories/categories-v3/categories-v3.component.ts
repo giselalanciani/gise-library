@@ -14,9 +14,15 @@ import { CategoriesService } from '../services/categories.service';
 export class CategoriesV3Component implements OnInit, OnDestroy {
   categoryList$: Observable<ICategory[]>;
   categoryList: ICategory[] = [];
+  filteredCategoryList: ICategory[] = [];
   categoryListSubscription!: Subscription;
   removeCategorySubscription!: Subscription;
   category: any;
+
+  sortState: { column: string; order: 'asc' | 'desc' } = {
+    column: '',
+    order: 'desc',
+  };
   constructor(
     public categoryServices: CategoriesService,
     public dialogService: MatDialog,
@@ -29,9 +35,45 @@ export class CategoriesV3Component implements OnInit, OnDestroy {
     this.categoryListSubscription = this.activatedRouteService.data.subscribe(
       (data) => {
         this.categoryList = data['categoriesList'];
+        this.filteredCategoryList = data['categoriesList'];
       }
     );
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+
+    this.filteredCategoryList = this.categoryList.filter((category) =>
+    category.name.toLowerCase().includes(filterValue)
+    );
+  }
+
+  sortTable(event: Event) {
+    const element = event.target as HTMLTableCellElement;
+    const columnName = element.getAttribute('name');
+
+    switch (columnName) {
+      case 'name':
+        this.sortState = {
+          column: 'name',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyName(this.sortState.order);
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByPropertyName(order: 'asc' | 'desc') {
+    this.filteredCategoryList.sort((a, b) =>
+      order === 'asc'
+        ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+    );
+  }
+
+
+
   ngOnDestroy(): void {
     this.categoryListSubscription.unsubscribe();
   }
@@ -55,6 +97,7 @@ export class CategoriesV3Component implements OnInit, OnDestroy {
                 this.categoryListSubscription = this.categoryList$.subscribe(
                   (categories) => {
                     this.categoryList = categories;
+                    this.filteredCategoryList = categories;
                   }
                 );
               });

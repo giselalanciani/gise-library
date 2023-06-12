@@ -6,15 +6,20 @@
 >
   <mat-icon>add</mat-icon> Create
 </a>
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
+</mat-form-field>
+
 <table class="library-table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th name="name" (click)="sortTable($event)">Name</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let category of categoryList">
+    <tr *ngFor="let category of filteredCategoryList">
       <td>
         {{ category.name }}
       </td>
@@ -36,7 +41,11 @@
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </a>
-          <button mat-menu-item color="warn" (click)="openDeleteDialog(category)">
+          <button
+            mat-menu-item
+            color="warn"
+            (click)="openDeleteDialog(category)"
+          >
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
