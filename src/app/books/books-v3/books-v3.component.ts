@@ -18,6 +18,11 @@ export class BooksV3Component implements OnInit, OnDestroy {
   bookListSubscription!: Subscription;
   removeBookSubscription!: Subscription;
 
+  sortState: { column: string; order: 'asc' | 'desc' } = {
+    column: '',
+    order: 'desc',
+  };
+
   dialogDeleteSubscription!: Subscription;
   constructor(
     public booksServices: BooksService,
@@ -36,10 +41,81 @@ export class BooksV3Component implements OnInit, OnDestroy {
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredBookList = this.bookList.filter((book) => {
+      const stockString = book.stock.toString().toLowerCase();
+      const priceString = book.price.toString().toLowerCase();
+      return (
+        book.name.toLowerCase().includes(filterValue) ||
+        book.author.toLowerCase().includes(filterValue) ||
+        stockString.includes(filterValue) ||
+        priceString.includes(filterValue)
+      );
+    });
+  }
 
-    this.filteredBookList = this.bookList.filter((book) =>
-      book.name.toLowerCase().includes(filterValue) ||
-      book.author.toLowerCase().includes(filterValue)
+  sortTable(event: Event) {
+    const element = event.target as HTMLTableCellElement;
+    const columnName = element.getAttribute('name');
+
+    switch (columnName) {
+      case 'name':
+        this.sortState = {
+          column: 'name',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyName(this.sortState.order);
+        break;
+      case 'author':
+        this.sortState = {
+          column: 'author',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyAuthor(this.sortState.order);
+        break;
+      case 'price':
+        this.sortState = {
+          column: 'price',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyPrice(this.sortState.order);
+        break;
+      case 'stock':
+        this.sortState = {
+          column: 'stock',
+          order: this.sortState.order === 'desc' ? 'asc' : 'desc',
+        };
+        this.sortByPropertyStock(this.sortState.order);
+        break;
+      default:
+        break;
+    }
+  }
+
+  sortByPropertyName(order: 'asc' | 'desc') {
+    this.filteredBookList.sort((a, b) =>
+      order === 'asc'
+        ? a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        : b.name.toLowerCase().localeCompare(a.name.toLowerCase())
+    );
+  }
+
+  sortByPropertyAuthor(order: 'asc' | 'desc') {
+    this.filteredBookList.sort((a, b) =>
+      order === 'asc'
+        ? a.author.toLowerCase().localeCompare(b.author.toLowerCase())
+        : b.author.toLowerCase().localeCompare(a.author.toLowerCase())
+    );
+  }
+
+  sortByPropertyPrice(order: 'asc' | 'desc') {
+    this.filteredBookList.sort((a, b) =>
+      order === 'asc' ? a.price - b.price : b.price - a.price
+    );
+  }
+
+  sortByPropertyStock(order: 'asc' | 'desc') {
+    this.filteredBookList.sort((a, b) =>
+      order === 'asc' ? a.stock - b.stock : b.stock - a.stock
     );
   }
 

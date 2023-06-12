@@ -1,3 +1,10 @@
 :host {
   width: 100%;
+
+  th[name="name"],
+  th[name="author"],
+  th[name="stock"],
+  th[name="price"] {
+    cursor: pointer;
+  }
 }

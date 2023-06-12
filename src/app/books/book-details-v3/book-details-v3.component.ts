@@ -55,8 +55,8 @@ export class BookDetailsComponentV3 implements OnDestroy {
       const book: IBook = {
         name: this.form.controls['name'].value,
         author: this.form.controls['author'].value,
-        stock: this.form.controls['stock'].value,
-        price: this.form.controls['price'].value,
+        stock: parseFloat(this.form.controls['stock'].value),
+        price: parseFloat(this.form.controls['price'].value),
         editorial: 0,
         categories: [],
         year: 0,
@@ -70,7 +70,7 @@ export class BookDetailsComponentV3 implements OnDestroy {
           .createBook(book)
           .subscribe(() => {
             this._snackBar.open('El libro fue guardado', 'ok');
-            this.router.navigate(['books']);
+            this.router.navigate(['books','v3']);
           });
       } else {
         // Is Edit
@@ -79,7 +79,7 @@ export class BookDetailsComponentV3 implements OnDestroy {
           .editBook(this.book.id, book)
           .subscribe(() => {
             this._snackBar.open('El libro fue actualizado', 'ok');
-            this.router.navigate(['books']);
+            this.router.navigate(['books', 'v3']);
           });
       }
     } else {
