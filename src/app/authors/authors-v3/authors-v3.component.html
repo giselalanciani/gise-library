@@ -1,22 +1,30 @@
 <h2>Authors</h2>
-<a mat-raised-button color="primary" [routerLink]="['/', 'authors', 'create-v3']">
+<a
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/', 'authors', 'create-v3']"
+>
   <mat-icon>add</mat-icon> Create
 </a>
 
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
 </mat-form-field>
 
 <table class="library-table">
   <thead>
     <tr>
-      <th name="name" (click)="sortTable($event)">Name</th>
+      <th name="name" (click)="sortTable($event)">
+        Name
+        <mat-icon *ngIf="showArrow('name', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('name', 'asc')">arrow_upward</mat-icon>
+      </th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor ="let author of filteredAuthorList" >
+    <tr *ngFor="let author of filteredAuthorList">
       <td>
         {{ author.name }}
       </td>

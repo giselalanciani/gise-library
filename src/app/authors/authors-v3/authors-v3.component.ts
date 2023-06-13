@@ -77,6 +77,10 @@ export class AuthorsV3Component implements OnInit, OnDestroy {
     );
   }
 
+  showArrow(column: string, order: 'asc' | 'desc'): boolean {
+    return this.sortState.column === column && this.sortState.order === order;
+  }
+
   openDeleteDialog(author: IAuthors) {
     const dialogRef = this.dialogService.open(DeleteAuthorDialog, {
       data: author,
