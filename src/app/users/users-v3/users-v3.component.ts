@@ -119,6 +119,9 @@ export class UsersV3Component {
   ngOnDestroy(): void {
     this.userListSubscription.unsubscribe();
   }
+  showArrow(column: string, order: 'asc' | 'desc'): boolean {
+    return this.sortState.column === column && this.sortState.order === order;
+  }
 
   openDeleteDialog(user: IUser) {
     const dialogRef = this.dialogService.open(DeleteUserDialog, { data: user });

@@ -77,6 +77,9 @@ export class CategoriesV3Component implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.categoryListSubscription.unsubscribe();
   }
+  showArrow(column: string, order: 'asc' | 'desc'): boolean {
+    return this.sortState.column === column && this.sortState.order === order;
+  }
   openDeleteDialog(category: ICategory) {
     const dialogRef = this.dialogService.open(DeleteCategoryDialog, {
       data: category,

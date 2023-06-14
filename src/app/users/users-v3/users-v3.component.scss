@@ -20,10 +20,8 @@
   .mat-mdc-raised-button {
     margin-bottom: 16px;
   }
-  th[name="name"],
-  th[name="email"],
-  th[name="password"],
-  th[name="role"] {
+  .sort-column-align {
+
     cursor: pointer;
   }
 }

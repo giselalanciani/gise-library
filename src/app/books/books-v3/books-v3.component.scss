@@ -1,10 +1,22 @@
 :host {
   width: 100%;
 
-  th[name="name"],
-  th[name="author"],
-  th[name="stock"],
-  th[name="price"] {
+  .sort-column-align {
+
     cursor: pointer;
   }
+
+  // th[name="stock"] {
+  //   cursor: pointer;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
+  // th[name="price"] {
+  //   cursor: pointer;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
 }
+

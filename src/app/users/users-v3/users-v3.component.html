@@ -10,10 +10,28 @@
 <table class="library-table">
   <thead>
     <tr>
-      <th name="name" (click)="sortTable($event)">Name</th>
-      <th name="email" (click)="sortTable($event)">Email</th>
-      <th name="password" (click)="sortTable($event)">Password</th>
-      <th name="role" (click)="sortTable($event)">Role</th>
+      <th name="name" class="sort-column-align" (click)="sortTable($event)">
+        Name
+        <mat-icon *ngIf="showArrow('name', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('name', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="email" class="sort-column-align" (click)="sortTable($event)">
+        Email
+        <mat-icon *ngIf="showArrow('email', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('email', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="password" class="sort-column-align" (click)="sortTable($event)">
+        Password
+        <mat-icon *ngIf="showArrow('password', 'desc')"
+          >arrow_downward</mat-icon
+        >
+        <mat-icon *ngIf="showArrow('password', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="role" class="sort-column-align" (click)="sortTable($event)">
+        Role
+        <mat-icon *ngIf="showArrow('role', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('role', 'asc')">arrow_upward</mat-icon>
+      </th>
       <th>Actions</th>
     </tr>
   </thead>

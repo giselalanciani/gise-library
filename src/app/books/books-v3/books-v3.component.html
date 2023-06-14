@@ -4,16 +4,32 @@
 </a>
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
 </mat-form-field>
 
 <table class="library-table">
   <thead>
     <tr>
-      <th name="name" (click)="sortTable($event)">Name</th>
-      <th name="author" (click)="sortTable($event)">Author</th>
-      <th name="stock" (click)="sortTable($event)">Stock</th>
-      <th name="price" (click)="sortTable($event)">Price</th>
+      <th name="name" class="sort-column-align" (click)="sortTable($event)">
+        Name
+        <mat-icon *ngIf="showArrow('name', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('name', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="author" class="sort-column-align" (click)="sortTable($event)">
+        Author
+        <mat-icon *ngIf="showArrow('author', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('author', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="stock" class="sort-column-align" (click)="sortTable($event)">
+        Stock
+        <mat-icon *ngIf="showArrow('stock', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('stock', 'asc')">arrow_upward</mat-icon>
+      </th>
+      <th name="price"class="sort-column-align" (click)="sortTable($event)">
+        Price
+        <mat-icon *ngIf="showArrow('price', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('price', 'asc')">arrow_upward</mat-icon>
+      </th>
       <th>Actions</th>
     </tr>
   </thead>

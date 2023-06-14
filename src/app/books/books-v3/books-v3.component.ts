@@ -118,6 +118,9 @@ export class BooksV3Component implements OnInit, OnDestroy {
       order === 'asc' ? a.stock - b.stock : b.stock - a.stock
     );
   }
+  showArrow(column: string, order: 'asc' | 'desc'): boolean {
+    return this.sortState.column === column && this.sortState.order === order;
+  }
 
   ngOnDestroy(): void {
     this.bookListSubscription.unsubscribe();

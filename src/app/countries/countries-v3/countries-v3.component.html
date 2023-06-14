@@ -1,5 +1,9 @@
 <h2>Countries</h2>
-<a mat-raised-button color="primary" [routerLink]="['/', 'countries', 'create-v3']">
+<a
+  mat-raised-button
+  color="primary"
+  [routerLink]="['/', 'countries', 'create-v3']"
+>
   <mat-icon>add</mat-icon> Create
 </a>
 <mat-form-field>
@@ -10,7 +14,11 @@
 <table class="library-table">
   <thead>
     <tr>
-      <th name="name" (click)="sortTable($event)">Name</th>
+      <th name="name" class="sort-column-align" (click)="sortTable($event)">
+        Name
+        <mat-icon *ngIf="showArrow('name', 'desc')">arrow_downward</mat-icon>
+        <mat-icon *ngIf="showArrow('name', 'asc')">arrow_upward</mat-icon>
+      </th>
       <th>Actions</th>
     </tr>
   </thead>
