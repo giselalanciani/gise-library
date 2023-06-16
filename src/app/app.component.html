@@ -59,6 +59,15 @@
         <mat-icon matListItemIcon>group</mat-icon>
         <div matListItemTitle>Users</div>
       </a>
+      <a
+      mat-list-item
+      routerLinkActive="active-link"
+      class="hover"
+      [routerLink]="['singin']"
+    >
+      <mat-icon matListItemIcon>login</mat-icon>
+      <div matListItemTitle>Signin</div>
+    </a>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>
