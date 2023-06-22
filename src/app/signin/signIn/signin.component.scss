@@ -1,0 +1,27 @@
+:host {
+  mat-card {
+    mat-card-content {
+      form {
+        mat-form-field {
+          width: 100%;
+        }
+        .action-buttons-container {
+          display: flex;
+          button {
+            flex-grow: 1;
+          }
+        }
+      }
+    }
+    mat-card-actions {
+      flex-direction: column;
+      flex-wrap: wrap;
+      flex-basis: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

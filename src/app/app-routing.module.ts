@@ -42,7 +42,12 @@ const routes: Routes = [
     path: 'unauthorized',
     component: UnauthorizedComponent,
   },
-  { path: 'signin', loadChildren: () => import('./signin/signin.module').then(m => m.SigninModule) },
+  {
+    path: 'signin',
+    loadChildren: () =>
+      import('./signin/signin.module').then((m) => m.SigninModule),
+  },
+
 ];
 
 @NgModule({
