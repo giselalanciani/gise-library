@@ -66,8 +66,17 @@
       [routerLink]="['signin']"
     >
       <mat-icon matListItemIcon>login</mat-icon>
-      <div matListItemTitle>Signin</div>
+      <div matListItemTitle>Sign in</div>
     </a>
+    <a
+    mat-list-item
+    routerLinkActive="active-link"
+    class="hover"
+    [routerLink]="['sign-up']"
+  >
+    <mat-icon matListItemIcon>login</mat-icon>
+    <div matListItemTitle>Sign up</div>
+  </a>
     </mat-list>
   </mat-drawer>
   <mat-drawer-content>

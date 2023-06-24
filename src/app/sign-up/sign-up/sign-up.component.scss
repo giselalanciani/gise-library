@@ -1,5 +1,9 @@
+
 :host {
   align-self: center;
+  @media screen and (min-width: 600px) {
+    width: 400px;
+  }
   mat-card {
     margin: auto;
     mat-card-content {
@@ -7,6 +11,10 @@
         mat-form-field {
           width: 100%;
         }
+        .term-and-conditions {
+          margin: 0 12px;
+        }
+
         .action-buttons-container {
           display: flex;
           button {
