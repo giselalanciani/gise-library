@@ -21,6 +21,18 @@ export class SignUpComponent implements OnInit {
     repeatPassword: [''],
   });
 
+  today = new Date();
+  eighteenYearsAgo = new Date(
+    this.today.getFullYear() - 18,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
+  hundredYearsAgo = new Date(
+    this.today.getFullYear() - 100,
+    this.today.getMonth(),
+    this.today.getDate()
+  );
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
