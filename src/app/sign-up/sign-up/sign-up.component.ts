@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IRegistration } from '../models';
+import { isCheckValidValidator } from './is-checkbox-valid.validator';
 import { passwordMatchValidator } from './password-match.validator';
 
 @Component({
@@ -9,16 +11,18 @@ import { passwordMatchValidator } from './password-match.validator';
 })
 export class SignUpComponent implements OnInit {
   form: FormGroup = this.formBuilder.group({
-    firstName: ['', [Validators.required]],
-    lastName: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    gender: ['', [Validators.required]],
+    firstName: ['Gisela', [Validators.required]],
+    lastName: ['Lanciani', [Validators.required]],
+    email: ['gise@gmail.com', [Validators.required, Validators.email]],
+    gender: ['female', [Validators.required]],
     birthday: ['', [Validators.required]],
-    phoneType: ['', [Validators.required]],
-    phoneNumber: ['', [Validators.required]],
-    countryOfResidence: ['', [Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
-    repeatPassword: [''],
+    phoneType: ['mobile', [Validators.required]],
+    phoneNumber: ['23232323232', [Validators.required]],
+    countryOfResidence: ['Argentina', [Validators.required]],
+    password: ['123456', [Validators.required, Validators.minLength(6)]],
+    repeatPassword: ['123456'],
+    terms: [false, isCheckValidValidator],
+    privacy: [false, isCheckValidValidator],
   });
 
   today = new Date();
@@ -32,6 +36,7 @@ export class SignUpComponent implements OnInit {
     this.today.getMonth(),
     this.today.getDate()
   );
+  wasSubmitted: boolean = false;
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -48,6 +53,7 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
+    this.wasSubmitted = true;
     if (this.form.valid) {
       const firstName = this.form.controls['firstName'].value;
       const lastName = this.form.controls['lastName'].value;
@@ -59,6 +65,25 @@ export class SignUpComponent implements OnInit {
       const countryOfResidence = this.form.controls['countryOfResidence'].value;
       const password = this.form.controls['password'].value;
       const repeatPassword = this.form.controls['repeatPassword'].value;
+      const terms = this.form.controls['terms'].value;
+      const privacy = this.form.controls['privacy'].value;
+
+      const registration: IRegistration = {
+        firstName,
+        lastName,
+        email,
+        gender,
+        birthday,
+        phoneType,
+        phoneNumber,
+        countryOfResidence,
+        password,
+        repeatPassword,
+        terms,
+        privacy,
+      };
+
+      console.log('sending registration: ', registration);
     }
   }
 

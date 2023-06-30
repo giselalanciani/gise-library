@@ -120,14 +120,39 @@
           }}''
         </mat-error>
       </mat-form-field>
+
       <section>
-        <mat-checkbox class="term-and-conditions">
-          I have read and I accept the Terms and conditions
-        </mat-checkbox>
-        <mat-checkbox class="term-and-conditions">
+        <mat-checkbox
+          matInput
+          class="term-and-conditions"
+          formControlName="terms"
+        >
+          I have read and I accept the Terms and conditions</mat-checkbox
+        >
+
+        <mat-error
+          *ngIf="
+            wasSubmitted && form.controls['terms'].hasError('isCheckValid')
+          "
+          >Debe aceptar terminos</mat-error
+        >
+
+        <mat-checkbox
+          matInput
+          class="term-and-conditions"
+          formControlName="privacy"
+        >
           I have read and I accept the Privacy notice
         </mat-checkbox>
+
+        <mat-error
+          *ngIf="
+            wasSubmitted && form.controls['privacy'].hasError('isCheckValid')
+          "
+          >Debe aceptar terminos de privacidad</mat-error
+        >
       </section>
+
       <div class="action-buttons-container">
         <button mat-raised-button type="submit" color="primary">Sign up</button>
       </div>
