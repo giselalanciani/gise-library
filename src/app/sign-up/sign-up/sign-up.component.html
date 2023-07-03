@@ -32,9 +32,9 @@
         <mat-label>Gender</mat-label>
 
         <mat-select formControlName="gender">
-          <mat-option value="male">Male</mat-option>
-          <mat-option value="female">Female</mat-option>
-          <mat-option value="other">Other</mat-option>
+          <mat-option value="M">Male</mat-option>
+          <mat-option value="F">Female</mat-option>
+          <mat-option value="O">Other</mat-option>
         </mat-select>
         <mat-error *ngIf="form.controls['birthday'].hasError('required')"
           >El campo es requerido</mat-error
@@ -78,9 +78,11 @@
       <mat-form-field appearance="outline">
         <mat-label>Country of residence</mat-label>
         <mat-select formControlName="countryOfResidence">
-          <mat-option value="Argentina">Argentina</mat-option>
-          <mat-option value="Canada">Canada</mat-option>
-          <mat-option value="España">España</mat-option>
+          <mat-option
+            *ngFor="let country of countriesList"
+            [value]="country.id"
+            >{{ country.name }}</mat-option
+          >
         </mat-select>
         <mat-error *ngIf="form.controls['birthday'].hasError('required')"
           >El campo es requerido</mat-error

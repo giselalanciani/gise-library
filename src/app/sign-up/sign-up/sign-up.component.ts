@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ICountry } from 'src/app/countries/models';
 import { IRegistration } from '../models';
 import { isCheckValidValidator } from './is-checkbox-valid.validator';
 import { passwordMatchValidator } from './password-match.validator';
@@ -38,13 +40,21 @@ export class SignUpComponent implements OnInit {
   );
   wasSubmitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  countriesList: ICountry[] = [];
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private activatedRouteService: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.form.controls['repeatPassword'].setValidators([
       Validators.required,
       passwordMatchValidator(this.form.controls['password']),
     ]);
+    this.activatedRouteService.data.subscribe((data) => {
+      this.countriesList = data['countriesList'];
+    });
   }
 
   validatePasswords(event: any) {
